@@ -1,4 +1,4 @@
-package eu.seaclouds.toscaparser.structure;
+package eu.seaclouds.toscaparser.nodes;
 
 public class Compute {
 

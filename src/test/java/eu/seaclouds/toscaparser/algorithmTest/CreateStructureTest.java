@@ -14,7 +14,7 @@ import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
-import eu.seaclouds.toscaparser.structure.Compute;
+import eu.seaclouds.toscaparser.nodes.Compute;
 
 
 public class CreateStructureTest {
@@ -26,7 +26,7 @@ public class CreateStructureTest {
 	private String stringyaml;
 	
 	@BeforeClass
-	public void createObjects() {
+	public void createSingleComputeObjectYAML() {
 		
 		System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
 		log = LoggerFactory.getLogger(CreateStructureTest.class);
@@ -56,32 +56,46 @@ public class CreateStructureTest {
 		
 		
 		log.info("Starging testCreatinObject test");
-		
-//		  Constructor c=new Constructor();
-//		  TypeDescription td=new TypeDescription(EnumBean.class);
-//		  td.putMapPropertyType("map",Suit.class,Object.class);
-//		  c.addTypeDescription(td);
-//		  Yaml yaml=new Yaml(c);
-		
-		
-		
-		
-//		Constructor constructor=new Constructor();
-//		constructor.addTypeDescription(new TypeDescription(Compute.class,"!!eu.seaclouds.toscaparser.structure.Compute"));
-//		Yaml parser = new Yaml(constructor);
-		
+
 		Constructor constructor = new Constructor(Compute.class);//Compute.class is root
-		TypeDescription computeDescription = new TypeDescription(Compute.class);
-		//carDescription.putListPropertyType("wheels", Wheel.class);
-		constructor.addTypeDescription(computeDescription);
+		//TypeDescription computeDescription = new TypeDescription(Compute.class);
+		//carDescription.putListPropertyType("properties", Property.class);
+		// td.putMapPropertyType("map",Suit.class,Object.class);
+		//constructor.addTypeDescription(computeDescription);
 		Yaml parser = new Yaml(constructor);
 		
 		Compute map =  (Compute) parser.load(stringyaml);
 	
 		log.info("Original content was " + stringyaml + " and map is " + map.toString());
-		Assert.assertTrue("map is null. Original content was " + stringyaml + " and map is " + map.toString(), map!=null);
+		Assert.assertTrue("The element created from the yaml null. Original content was: " + stringyaml + System.getProperty("line.separator") + " and element is: " + map.toString(), map!=null);
 		log.debug("MapToString is:" + map.toString());
 	}
+	
+	
+	@Test
+	public void Test2objectsInList(){
+		
+		System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
+		log = LoggerFactory.getLogger(CreateStructureTest.class);
+		
+		log.info("Starting TEST CreateStructure");
+		HashMap<String,Compute> map = new HashMap<String,Compute>();
+		
+		Compute comp2 = new Compute("firstCompute",2);
+		map.put("firstCompute", comp2);
+		
+		Yaml parser = new Yaml();
+		stringyaml = parser.dump(comp2);
+		//stringyaml = parser.dump(map);
+		
+		final String dir = System.getProperty("user.dir");
+		log.debug("Saving files in folder = " + dir);
+		
+		saveFile(dir+yamlfilename, stringyaml);
+		
+		
+	}
+	
 	
 	
 	private void saveFile(String outputFilename, String dam) {
