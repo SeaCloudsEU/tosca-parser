@@ -23,6 +23,10 @@ public class Storage_type extends Property {
 		this.type = type;
 	}
 	
+	@Override
+	public String toString(){return type;}
+		
+	
 	
 	
 }

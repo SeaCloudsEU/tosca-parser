@@ -23,5 +23,9 @@ public class Scaling_vertical extends Operation {
 		this.hasScalingVertical = hasScalingVertical;
 	}
 	
+	@Override
+	public String toString(){return ""+hasScalingVertical;}
+		
+	
 	
 }

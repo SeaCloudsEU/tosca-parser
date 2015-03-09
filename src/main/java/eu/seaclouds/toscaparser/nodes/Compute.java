@@ -44,15 +44,6 @@ public class Compute {
 		this.times = times;
 	}
 	
-	@Override
-	public String toString(){
-		String output="";
-		for(int i=0; i<times; i++){
-			output+=message;
-		}
-		
-		return output+"PROPERTIES:"+properties.toString()+"__OPERATIONS:"+operations.toString();
-	}
 	public List<Property> getProperties() {
 		return properties;
 	}
@@ -65,6 +56,30 @@ public class Compute {
 	public void setOperations(HashMap<String,Operation> operations) {
 		this.operations = operations;
 	}
+	
+	
+	
+	
+	
+	
+	@Override
+	public String toString(){
+		String output="";
+		for(int i=0; i<times; i++){
+			output+=message;
+		}
+		
+		if((properties!=null)&&(operations!=null)){
+			return output+"PROPERTIES:"+properties.toString()+"__OPERATIONS:"+operations.toString();
+		}
+		else{
+			return output;
+			}
+	}
+	
+	
+	
+
 	
 
 	

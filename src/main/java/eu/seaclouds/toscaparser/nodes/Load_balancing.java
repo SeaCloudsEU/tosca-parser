@@ -21,5 +21,7 @@ public void setHasLoadBalancing(boolean hasLoadBalancing) {
 	this.hasLoadBalancing = hasLoadBalancing;
 }
 
+@Override
+public String toString(){return ""+hasLoadBalancing;}
 	
 }

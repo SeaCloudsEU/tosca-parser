@@ -42,6 +42,9 @@ public class Region extends Property {
 		this.region = region;
 	}
 	
+	@Override
+	public String toString(){return continent+"->"+country+"->"+region;}
+		
 	
 	
 	

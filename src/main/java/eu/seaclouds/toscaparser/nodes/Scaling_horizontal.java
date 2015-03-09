@@ -23,5 +23,6 @@ public class Scaling_horizontal extends Operation {
 		this.hasScalingHorizontal = hasScalingHorizontal;
 	}
 	
-	
+	@Override
+	public String toString(){return ""+hasScalingHorizontal;}
 }

@@ -5,12 +5,14 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
+import org.junit.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
 
 import eu.seaclouds.toscaparser.nodes.Compute;
 import eu.seaclouds.toscaparser.nodes.Load_balancing;
@@ -20,7 +22,6 @@ import eu.seaclouds.toscaparser.nodes.Outbound_bandwidth;
 import eu.seaclouds.toscaparser.nodes.Property;
 import eu.seaclouds.toscaparser.nodes.Region;
 import eu.seaclouds.toscaparser.nodes.Scaling_horizontal;
-import eu.seaclouds.toscaparser.nodes.Scaling_vertical;
 import eu.seaclouds.toscaparser.nodes.StopPauseTerminate;
 import eu.seaclouds.toscaparser.nodes.Storage_Filesystem;
 import eu.seaclouds.toscaparser.nodes.Storage_type;
@@ -29,11 +30,9 @@ public class ToscaNodeComputeTest {
 
 	static Logger log;
 	private static final String yamlfilename = "/target/computeFull.yaml";
-	private static final String yamlfilenamelist = "/target/computeFullList.yaml";
-	private static final String yamlfilenamemap = "/target/computeFullMap.yaml";
+
 	
 	
-	private String stringyaml;
 	
 	@BeforeClass
 	public void createSingleComputeObjectYAML() {
@@ -50,10 +49,15 @@ public class ToscaNodeComputeTest {
 	@Test
 	public void testWriteReadCompute(){
 		
-		stringyaml = createyaml();
+		log.info("STARTING TEST WriteRead a Compute object");
+		log.info("Creating Compute Object into a YAML");
+		String stringyaml = createyaml();
+		log.info("YAML created. Now Reading Compute object from a YAML");
+		log.info("Creating Compute Object from a YAML");
 		Compute comp= readyaml(stringyaml);
+		log.info("FINISHING TEST reading Compute from YAML");
 		
-		Assert.assertTrue(comp!=null, "Readyaml returned null");
+		Assert.assertTrue( "Readyaml returned null", comp!=null);
 		
 		
 		
@@ -62,9 +66,22 @@ public class ToscaNodeComputeTest {
 
 
 
-	private Compute readyaml(String stringyaml2) {
-		// TODO Auto-generated method stub
-		return null;
+	private Compute readyaml(String stringyaml) {
+		
+		
+		Constructor constructor = new Constructor(Compute.class);
+		Yaml parserRead = new Yaml(constructor);
+		
+		Compute read =   (Compute) parserRead.load(stringyaml);
+	
+		log.info("Original content was " + stringyaml + " and Compute Object string is " + read.toString());
+		Assert.assertTrue("The element created from the yaml null. Original content was: " + stringyaml + System.getProperty("line.separator") + " and element is: " + read.toString(), read!=null);
+		log.debug("Compute to String String is:" + read.toString());
+		
+		
+		
+		return read;
+		
 	}
 
 
@@ -73,14 +90,12 @@ public class ToscaNodeComputeTest {
 	private String createyaml() {
 		
 			//Writing objects
-				log.info("STARTING TEST Creating Compute Object into a YAML");
-
 				HashMap<String,Operation> operations = new HashMap<String,Operation>(); 
-				operations.put(Scaling_horizontal.class.getCanonicalName(), new Scaling_horizontal(true));
+				operations.put(Scaling_horizontal.class.getSimpleName(), new Scaling_horizontal(true));
 				// We omit the scaling vertical info to see what happens
 				//Scaling_vertical sv = new Scaling_vertical(false);
 				
-				operations.put(StopPauseTerminate.class.getCanonicalName(),new StopPauseTerminate(false,true,true));
+				operations.put(StopPauseTerminate.class.getSimpleName(),new StopPauseTerminate(false,true,true));
 				
 				ArrayList<Property> properties = new ArrayList<Property>();
 				
@@ -96,14 +111,14 @@ public class ToscaNodeComputeTest {
 				Compute comp1 = new Compute("firstCompute",2,properties,operations);
 				
 				Yaml parser = new Yaml();
-				stringyaml = parser.dump(comp1);
+				String stringyaml = parser.dump(comp1);
 				
 				final String dir = System.getProperty("user.dir");
 				log.debug("Saving files in folder = " + dir);
 				
 				saveFile(dir+yamlfilename, stringyaml);
 				
-				log.info("STARTING TEST Creating Compute Object into a YAML");
+				log.info("FINISHING TEST Creating Compute Object into a YAML");
 				return stringyaml;
 	}
 	

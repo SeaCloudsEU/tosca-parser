@@ -23,6 +23,10 @@ public class Storage_Filesystem extends Property {
 		this.filesystem = filesystem;
 	}
 	
+	@Override
+	public String toString(){return filesystem;}
+		
+	
 	
 	
 }

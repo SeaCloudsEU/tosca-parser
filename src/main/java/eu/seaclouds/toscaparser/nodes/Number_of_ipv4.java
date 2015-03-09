@@ -21,5 +21,9 @@ public class Number_of_ipv4 extends Networking {
 		this.numIP = numIP;
 	}
 	
+	@Override
+	public String toString(){return ""+numIP;}
+		
+	
 	
 }
