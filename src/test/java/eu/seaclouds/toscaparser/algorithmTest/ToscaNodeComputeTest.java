@@ -51,10 +51,14 @@ public class ToscaNodeComputeTest {
 		
 		log.info("STARTING TEST WriteRead a Compute object");
 		log.info("Creating Compute Object into a YAML");
+		
 		String stringyaml = createyaml();
+		
 		log.info("YAML created. Now Reading Compute object from a YAML");
 		log.info("Creating Compute Object from a YAML");
+		
 		Compute comp= readyaml(stringyaml);
+		
 		log.info("FINISHING TEST reading Compute from YAML");
 		
 		Assert.assertTrue( "Readyaml returned null", comp!=null);
@@ -89,37 +93,37 @@ public class ToscaNodeComputeTest {
 
 	private String createyaml() {
 		
-			//Writing objects
-				HashMap<String,Operation> operations = new HashMap<String,Operation>(); 
-				operations.put(Scaling_horizontal.class.getSimpleName(), new Scaling_horizontal(true));
-				// We omit the scaling vertical info to see what happens
-				//Scaling_vertical sv = new Scaling_vertical(false);
-				
-				operations.put(StopPauseTerminate.class.getSimpleName(),new StopPauseTerminate(false,true,true));
-				
-				ArrayList<Property> properties = new ArrayList<Property>();
-				
-				properties.add(new Load_balancing(true));
-				properties.add(new Outbound_bandwidth(5.0,10.0,2.0));
-				properties.add(new Number_of_ipv4(5));
-				
-				properties.add(new Storage_type("MyStorageType"));
-				properties.add(new Storage_Filesystem("My Storage File System (This string has white spaces to see what happens)"));
-				properties.add(new Region("Europe","Ireland",""));
-				
-				
-				Compute comp1 = new Compute("firstCompute",2,properties,operations);
-				
-				Yaml parser = new Yaml();
-				String stringyaml = parser.dump(comp1);
-				
-				final String dir = System.getProperty("user.dir");
-				log.debug("Saving files in folder = " + dir);
-				
-				saveFile(dir+yamlfilename, stringyaml);
-				
-				log.info("FINISHING TEST Creating Compute Object into a YAML");
-				return stringyaml;
+		//Writing objects
+		HashMap<String,Operation> operations = new HashMap<String,Operation>(); 
+		operations.put(Scaling_horizontal.class.getSimpleName(), new Scaling_horizontal(true));
+		
+		// We omit the scaling vertical info to see what happens
+		//Scaling_vertical sv = new Scaling_vertical(false);
+		
+		operations.put(StopPauseTerminate.class.getSimpleName(),new StopPauseTerminate(false,true,true));
+		
+		ArrayList<Property> properties = new ArrayList<Property>();
+		
+		properties.add(new Load_balancing(true));
+		properties.add(new Outbound_bandwidth(5.0,10.0,2.0));
+		properties.add(new Number_of_ipv4(5));
+		
+		properties.add(new Storage_type("MyStorageType"));
+		properties.add(new Storage_Filesystem("My Storage File System (This string has white spaces to see what happens)"));
+		properties.add(new Region("Europe","Ireland",""));
+		
+		
+		Compute comp1 = new Compute("firstCompute",2,properties,operations);
+		
+		Yaml parser = new Yaml();
+		String stringyaml = parser.dump(comp1);
+		
+		final String dir = System.getProperty("user.dir");
+		log.debug("Saving files in folder = " + dir);
+		
+		saveFile(dir+yamlfilename, stringyaml);
+	
+		return stringyaml;
 	}
 	
 	

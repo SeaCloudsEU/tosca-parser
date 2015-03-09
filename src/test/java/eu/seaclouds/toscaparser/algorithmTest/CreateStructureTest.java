@@ -63,12 +63,12 @@ public class CreateStructureTest {
 		saveFile(dir+yamlfilename, stringyaml);
 		
 		
-		//reading objects
 		
+		//reading objects
 		Constructor constructor = new Constructor(Compute.class);//Compute.class is root
 		//TypeDescription computeDescription = new TypeDescription(Compute.class);
 		//carDescription.putListPropertyType("properties", Property.class);
-		// td.putMapPropertyType("map",Suit.class,Object.class);
+		// td.putMapPropertyType("map",String.class,Property.class);
 		//constructor.addTypeDescription(computeDescription);
 		Yaml parserread = new Yaml(constructor);
 		
@@ -78,6 +78,7 @@ public class CreateStructureTest {
 		Assert.assertTrue("The element created from the yaml null. Original content was: " + stringyaml + System.getProperty("line.separator") + " and element is: " + element.toString(), element!=null);
 		log.debug("MapToString is:" + element.toString());
 	}
+	
 	
 	
 	@Test
@@ -115,11 +116,15 @@ public class CreateStructureTest {
 		
 	}
 	
+	
+	
 	@Test
 	public void Test2objectsInMap(){
 		
 				
 		log.info("STARTING TEST with two objects in a map");
+		
+		//writting objects
 		HashMap<String,Compute> map = new HashMap<String,Compute>();
 		
 		Compute comp2 = new Compute("firstCompute",2);
@@ -136,18 +141,20 @@ public class CreateStructureTest {
 		saveFile(dir+yamlfilenamemap, stringyaml);
 		
 		//reading objects
-				Constructor constructor = new Constructor(HashMap.class);
-				Yaml parserRead = new Yaml(constructor);
-				
-				HashMap<String, Compute> readMap =  (HashMap<String,Compute>) parserRead.load(stringyaml);
-			
-				log.info("Original content was " + stringyaml + " and map is " + readMap.toString());
-				Assert.assertTrue("The element created from the yaml null. Original content was: " + stringyaml + System.getProperty("line.separator") + " and element is: " + readMap.toString(), readMap!=null);
-				log.debug("MapToString is:" + readMap.toString());
-				
-				log.info("FINISHING TEST with two objects in a map");
+		Constructor constructor = new Constructor(HashMap.class);
+		Yaml parserRead = new Yaml(constructor);
+		
+		HashMap<String, Compute> readMap =  (HashMap<String,Compute>) parserRead.load(stringyaml);
+	
+		log.info("Original content was " + stringyaml + " and map is " + readMap.toString());
+		Assert.assertTrue("The element created from the yaml null. Original content was: " + stringyaml + 
+						System.getProperty("line.separator") + " and element is: " + readMap.toString(), readMap!=null);
+		log.debug("MapToString is:" + readMap.toString());
+		
+		log.info("FINISHING TEST with two objects in a map");
 		
 	}
+	
 	
 	
 	
