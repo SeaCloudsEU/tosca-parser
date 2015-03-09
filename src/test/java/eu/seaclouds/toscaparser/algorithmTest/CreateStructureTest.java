@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
-import eu.seaclouds.toscaparsers.nodes.Compute;
+import eu.seaclouds.toscaparser.nodes.Compute;
 
 
 
