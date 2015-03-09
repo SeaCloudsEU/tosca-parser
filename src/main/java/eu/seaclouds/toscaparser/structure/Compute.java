@@ -2,10 +2,11 @@ package eu.seaclouds.toscaparser.structure;
 
 public class Compute {
 
-	private String message;
+	private String message="noStart";
 	
-	private int times;
+	private int times=1;
 
+	public Compute(){}
 	public Compute(String message, int times) {
 		this.message = message;
 		this.times = times;
@@ -25,6 +26,16 @@ public class Compute {
 
 	public void setTimes(int times) {
 		this.times = times;
+	}
+	
+	@Override
+	public String toString(){
+		String output="";
+		for(int i=0; i<times; i++){
+			output+=message;
+		}
+		
+		return output;
 	}
 	
 
