@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 public interface ITypeManager {
     public IToscaEnvironment getEnvironment();
     public IType getType(String typename);
+    public IType createNewType(String typename, )
     public INodeType getNodeType(String typename);
     public void bindTypeToInterface(Type interfaceType,String toscaTypeName );
 }
