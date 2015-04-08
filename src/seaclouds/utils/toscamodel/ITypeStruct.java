@@ -8,5 +8,5 @@ import java.util.Set;
 public interface ITypeStruct extends IType {
     public String getName();
     public ITypeStruct getSupertype();
-    public Set<Property> getProperties();
+    public Set<IProperty> getProperties();
 }

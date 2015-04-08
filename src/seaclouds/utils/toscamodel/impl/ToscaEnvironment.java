@@ -1,4 +1,5 @@
 package seaclouds.utils.toscamodel.impl;
+import com.oracle.webservices.internal.api.message.PropertySet;
 import seaclouds.utils.toscamodel.*;
 
 /**
@@ -7,12 +8,23 @@ import seaclouds.utils.toscamodel.*;
 
 import java.io.Reader;
 import java.io.Writer;
-import java.util.HashMap;
+import java.lang.reflect.Type;
+import java.util.*;
 
 public class ToscaEnvironment implements  IToscaEnvironment,ITypeManager,ITopology {
-    HashMap<String,IType> types;
-    HashMap<String,INodeType> nodeTypes;
-    HashMap<String,Object> topology;
+    final Map<String,ITypeStruct> structTypes = new HashMap<String, ITypeStruct>();
+    final Map<String,INodeType> nodeTypes = new HashMap<String, INodeType>();
+
+    @Override
+    public IType createNewType(String typename, ITypeStruct parentType, Collection< ? extends IProperty> schema) {
+        return null;
+    }
+
+    @Override
+    public void bindTypeToInterface(Type interfaceType, String toscaTypeName) {
+
+    }
+
     @Override
     public ITopology getTopology() {
         return this;

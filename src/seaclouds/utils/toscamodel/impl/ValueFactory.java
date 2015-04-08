@@ -335,22 +335,22 @@ public class ValueFactory {
     }
     static public IValueMap newMap(final Map<String,IValue> values) {
         IType t = null;
-        for (IValue v : values) {
+        for (Map.Entry<String,IValue> e : values.entrySet()) {
             if (t == null)
-                t = v.getType();
-            if (t != v.getType())
+                t = e.getValue().getType();
+            if (t != e.getValue().getType())
                 return null;
         }
         final IType t1 = t;
-        final IType listType = BasicTypeFactory.getListType(t);
+        final IType mapType = BasicTypeFactory.getMapType(t);
         return new IValueMap() {
 
             @Override
             public boolean equals(Object obj) {
                 if (obj == null) return false;
-                if (!(obj instanceof IValueList)) return false;
-                IValueList o = (IValueList) obj;
-                if (o.getType() != listType || o.size() != values.size()) return false;
+                if (!(obj instanceof IValueMap)) return false;
+                IValueMap o = (IValueMap) obj;
+                if (o.getType() != mapType || o.size() != values.size()) return false;
                 //todo: rewrite using iterators/arrays, this is n^2
                 for (int i = 0; i < values.size(); i++)
                     if (values.get(i) != o.get(i)) return false;
@@ -369,7 +369,12 @@ public class ValueFactory {
 
             @Override
             public IType getType() {
-                return listType;
+                return mapType;
+            }
+
+            @Override
+            public Set<Entry<String, IValue>> entrySet() {
+                return values.entrySet();
             }
 
             @Override
@@ -383,58 +388,33 @@ public class ValueFactory {
             }
 
             @Override
-            public boolean contains(Object o) {
-                return values.contains(o);
+            public boolean containsKey(Object key) {
+                return values.containsKey(key);
             }
 
             @Override
-            public Iterator<IValue> iterator() {
-                return values.iterator();
+            public boolean containsValue(Object value) {
+                return values.containsValue(value);
             }
 
             @Override
-            public Object[] toArray() {
-                return values.toArray();
+            public IValue get(Object key) {
+                return values.get(key);
             }
 
             @Override
-            public <T> T[] toArray(T[] a) {
-                return values.toArray(a);
+            public IValue put(String key, IValue value) {
+                return values.put(key,value);
             }
 
             @Override
-            public boolean add(IValue iValue) {
-                return values.add(iValue);
+            public IValue remove(Object key) {
+                return values.remove(key);
             }
 
             @Override
-            public boolean remove(Object o) {
-                return values.remove(o);
-            }
-
-            @Override
-            public boolean containsAll(Collection<?> c) {
-                return values.containsAll(c);
-            }
-
-            @Override
-            public boolean addAll(Collection<? extends IValue> c) {
-                return values.addAll(c);
-            }
-
-            @Override
-            public boolean addAll(int index, Collection<? extends IValue> c) {
-                return values.addAll(index, c);
-            }
-
-            @Override
-            public boolean removeAll(Collection<?> c) {
-                return values.removeAll(c);
-            }
-
-            @Override
-            public boolean retainAll(Collection<?> c) {
-                return values.retainAll(c);
+            public void putAll(Map<? extends String, ? extends IValue> m) {
+                values.putAll(m);
             }
 
             @Override
@@ -443,48 +423,13 @@ public class ValueFactory {
             }
 
             @Override
-            public IValue get(int index) {
-                return values.get(index);
+            public Set<String> keySet() {
+                return values.keySet();
             }
 
             @Override
-            public IValue set(int index, IValue element) {
-                return values.set(index, element);
-            }
-
-            @Override
-            public void add(int index, IValue element) {
-                values.add(index, element);
-            }
-
-            @Override
-            public IValue remove(int index) {
-                return values.remove(index);
-            }
-
-            @Override
-            public int indexOf(Object o) {
-                return values.indexOf(o);
-            }
-
-            @Override
-            public int lastIndexOf(Object o) {
-                return values.lastIndexOf(o);
-            }
-
-            @Override
-            public ListIterator<IValue> listIterator() {
-                return values.listIterator();
-            }
-
-            @Override
-            public ListIterator<IValue> listIterator(int index) {
-                return values.listIterator(index);
-            }
-
-            @Override
-            public List<IValue> subList(int fromIndex, int toIndex) {
-                return values.subList(fromIndex, toIndex);
+            public Collection<IValue> values() {
+                return values.values();
             }
         };
     }

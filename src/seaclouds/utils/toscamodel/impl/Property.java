@@ -1,0 +1,49 @@
+package seaclouds.utils.toscamodel.impl;
+
+import seaclouds.utils.toscamodel.*;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Created by pq on 08/04/2015.
+ */
+public class Property implements IProperty {
+    private final String name;
+    private final IType type;
+    private final IValue defaultValue;
+    private final Set<IConstraint> constraints;
+    public Property(String n, IType t, IValue dv, Collection<? extends  IConstraint> ct){
+        name = n;
+        type = t;
+        defaultValue = dv;
+        constraints = new HashSet<IConstraint>();
+        constraints.addAll(ct);
+    }
+    public Property addConstraint(String newName, IConstraint ct) {
+        Collection<IConstraint> cl = Collections.singleton(ct);
+        cl.addAll(constraints);
+        return new Property(newName,type,defaultValue, cl);
+    }
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public IType getType() {
+        return type;
+    }
+
+    @Override
+    public IValue getDefaultValue() {
+        return defaultValue;
+    }
+
+    @Override
+    public Set<IConstraint> getConstraints() {
+        return constraints;
+    }
+};
