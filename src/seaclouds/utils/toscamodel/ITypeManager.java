@@ -1,6 +1,5 @@
 package seaclouds.utils.toscamodel;
 
-import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import java.util.List;
 public interface ITypeManager {
     public IToscaEnvironment getEnvironment();
     public IType getType(String typename);
-    public IType createNewType(String typename,ITypeStruct parentType,  Collection<? extends  IProperty> schema);
+    public IType createNewType(String typename, String description,ITypeStruct parentType,  Collection<? extends  IProperty> schema);
     public INodeType getNodeType(String typename);
-    public void bindTypeToInterface(Type interfaceType,String toscaTypeName );
+    public void bindTypeToInterface(Class<? extends IValueStruct> interfaceType,String toscaTypeName );
 }

@@ -11,6 +11,6 @@ public interface INodeType extends  IType {
     public String getName();
     public String getDescription();
 
-    public Map<String,IProperty> getProperties();
+    public Set<IProperty> getProperties();
     public Map<String,IValue> getAttributes();
 }

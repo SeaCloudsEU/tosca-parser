@@ -24,7 +24,7 @@ public class BasicTypeFactory {
                     if (obj == null ) return false;
                     if (!(obj instanceof ITypeBasic)) return false;
                     ITypeBasic other = (ITypeBasic) obj;
-                    return  other.getBasicType() == typeInfo;
+                    return  other.getBasicType().equals(typeInfo);
                 }
 
                 @Override
@@ -51,7 +51,7 @@ public class BasicTypeFactory {
                     if (obj == null ) return false;
                     if (!(obj instanceof ITypeList)) return false;
                     ITypeList other = (ITypeList) obj;
-                    return  other.getValueType() == innerType;
+                    return  other.getValueType().equals(innerType);
                 }
                @Override
                public IType getValueType() {
@@ -78,7 +78,7 @@ public class BasicTypeFactory {
                     if (obj == null ) return false;
                     if (!(obj instanceof ITypeList)) return false;
                     ITypeList other = (ITypeList) obj;
-                    return  other.getValueType() == innerType;
+                    return  other.getValueType().equals(innerType);
                 }
                 @Override
                 public IType getValueType() {

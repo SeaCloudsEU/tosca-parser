@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0c6f60f2-5f26-4b80-8456-1fcdf83625f6" name="Default" comment="" />
+    <list default="true" id="0c6f60f2-5f26-4b80-8456-1fcdf83625f6" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/NodeType.java" />
+      <change type="DELETED" beforePath="C:\Users\pq\workspace\ToscaModel\src\seaclouds\utils\toscamodel\impl\ToscaType.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\pq\workspace\ToscaModel\src\seaclouds\utils\toscamodel\impl\TypeManager.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\pq\workspace\ToscaModel\src\seaclouds\utils\toscamodel\impl\ValueBoolean.java" afterPath="" />
+      <change type="MOVED" beforePath="C:\Users\pq\workspace\ToscaModel\src\seaclouds\utils\toscamodel\impl\StructType.java" afterPath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/TypeStruct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/BasicTypeFactory.java" afterPath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/BasicTypeFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/INodeType.java" afterPath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/INodeType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/ITypeManager.java" afterPath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/ITypeManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/ITypeStruct.java" afterPath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/ITypeStruct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/Property.java" afterPath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/Property.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ToscaEnvironment.java" afterPath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ToscaEnvironment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ValueStruct.java" afterPath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ValueStruct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="ToscaModel.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -22,166 +36,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ValueFactory.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ValueFactory.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="11" column="55" selection-start-line="11" selection-start-column="55" selection-end-line="11" selection-end-column="55" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1362#1363#0" expanded="true" />
-                <element signature="e#1398#1399#0" expanded="true" />
-                <element signature="e#1450#1451#0" expanded="true" />
-                <element signature="e#1539#1540#0" expanded="true" />
-                <element signature="method#newList#0;class#ValueFactory#0" expanded="false" />
-                <element signature="e#10350#10351#0" expanded="true" />
-                <element signature="e#10422#10423#0" expanded="true" />
-                <element signature="e#10487#10488#0" expanded="true" />
-                <element signature="e#10528#10529#0" expanded="true" />
-                <element signature="e#10588#10589#0" expanded="true" />
-                <element signature="e#10634#10635#0" expanded="true" />
-                <element signature="e#10716#10717#0" expanded="true" />
-                <element signature="e#10772#10773#0" expanded="true" />
-                <element signature="e#10827#10828#0" expanded="true" />
-                <element signature="e#10879#10880#0" expanded="true" />
-                <element signature="e#10941#10942#0" expanded="true" />
-                <element signature="e#10996#10997#0" expanded="true" />
-                <element signature="e#11072#11073#0" expanded="true" />
-                <element signature="e#11134#11135#0" expanded="true" />
-                <element signature="e#11214#11215#0" expanded="true" />
-                <element signature="e#11280#11281#0" expanded="true" />
-                <element signature="e#11347#11348#0" expanded="true" />
-                <element signature="e#11401#11402#0" expanded="true" />
-                <element signature="e#11482#11483#0" expanded="true" />
-                <element signature="e#11542#11543#0" expanded="true" />
-                <element signature="e#11612#11613#0" expanded="true" />
-                <element signature="e#11669#11670#0" expanded="true" />
-                <element signature="e#11768#11769#0" expanded="true" />
-                <element signature="e#11816#11817#0" expanded="true" />
-                <element signature="e#11873#11874#0" expanded="true" />
-                <element signature="e#11919#11920#0" expanded="true" />
-                <element signature="e#11984#11985#0" expanded="true" />
-                <element signature="e#12038#12039#0" expanded="true" />
-                <element signature="e#12110#12111#0" expanded="true" />
-                <element signature="e#12164#12165#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Tosca.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/Tosca.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ToscaEnvironment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ToscaEnvironment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#424#445#0" expanded="true" />
-                <element signature="e#504#523#0" expanded="true" />
-                <element signature="e#836#837#0" expanded="true" />
-                <element signature="e#863#864#0" expanded="true" />
-                <element signature="e#921#922#0" expanded="true" />
-                <element signature="e#948#949#0" expanded="true" />
-                <element signature="e#1301#1302#0" expanded="true" />
-                <element signature="e#1328#1329#0" expanded="true" />
-                <element signature="e#1395#1396#0" expanded="true" />
-                <element signature="e#1441#1442#0" expanded="true" />
-                <element signature="e#1500#1501#0" expanded="true" />
-                <element signature="e#1546#1547#0" expanded="true" />
+                <element signature="e#328#348#0" expanded="true" />
+                <element signature="e#407#426#0" expanded="true" />
+                <element signature="e#626#636#0" expanded="true" />
+                <element signature="e#1086#1087#0" expanded="true" />
+                <element signature="e#1113#1114#0" expanded="true" />
+                <element signature="e#1171#1172#0" expanded="true" />
+                <element signature="e#1198#1199#0" expanded="true" />
+                <element signature="e#1551#1552#0" expanded="true" />
+                <element signature="e#1578#1579#0" expanded="true" />
+                <element signature="e#1645#1646#0" expanded="true" />
+                <element signature="e#1691#1692#0" expanded="true" />
+                <element signature="e#1750#1751#0" expanded="true" />
+                <element signature="e#1796#1797#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StructType.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/StructType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="29" column="31" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#586#587#0" expanded="true" />
-                <element signature="e#623#624#0" expanded="true" />
-                <element signature="e#1059#1255#0" expanded="true" />
-                <element signature="e#1254#1255#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ValueStruct.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ValueStruct.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4820457">
-              <caret line="55" column="32" selection-start-line="55" selection-start-column="32" selection-end-line="55" selection-end-column="32" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#616#617#0" expanded="true" />
-                <element signature="e#643#644#0" expanded="true" />
-                <element signature="e#711#712#0" expanded="true" />
-                <element signature="e#756#757#0" expanded="true" />
-                <element signature="e#1174#1216#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IValueStruct.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/IValueStruct.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Property.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/Property.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#934#935#0" expanded="true" />
-                <element signature="e#961#962#0" expanded="true" />
-                <element signature="e#1005#1006#0" expanded="true" />
-                <element signature="e#1032#1033#0" expanded="true" />
-                <element signature="e#1085#1086#0" expanded="true" />
-                <element signature="e#1120#1121#0" expanded="true" />
-                <element signature="e#1182#1183#0" expanded="true" />
-                <element signature="e#1216#1217#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ITypeManager.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ITypeManager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/ITypeManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="13" column="50" selection-start-line="13" selection-start-column="50" selection-end-line="13" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IValueBoolean.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/IValueBoolean.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
-              <folding />
+            <state vertical-scroll-proportion="0.20348205">
+              <caret line="11" column="65" selection-start-line="11" selection-start-column="65" selection-end-line="11" selection-end-column="65" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -208,7 +95,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/NodeType.java" />
-        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/INodeType.java" />
         <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/IValue.java" />
         <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/EBasicTypeInfo.java" />
         <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/IProperty.java" />
@@ -240,21 +126,25 @@
         <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/Tosca.java" />
         <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/Tosca.java" />
         <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ToscaType.java" />
-        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/TypeManager.java" />
         <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/IConstraint.java" />
         <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/TypeBasic.java" />
         <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ValueBoolean.java" />
         <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ValueFloat.java" />
-        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/BasicTypeFactory.java" />
-        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ValueFactory.java" />
         <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/IConstraintEqual.java" />
-        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/ITypeStruct.java" />
-        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/ITypeManager.java" />
-        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/Property.java" />
-        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ToscaEnvironment.java" />
-        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/StructType.java" />
         <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/IValueStruct.java" />
+        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/TypeManager.java" />
+        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/StructType.java" />
+        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/TyeStruct.java" />
+        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ValueFactory.java" />
         <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ValueStruct.java" />
+        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/BasicTypeFactory.java" />
+        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/Property.java" />
+        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/INodeType.java" />
+        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/NodeType.java" />
+        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/ITypeStruct.java" />
+        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/TypeStruct.java" />
+        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ToscaEnvironment.java" />
+        <option value="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/ITypeManager.java" />
       </list>
     </option>
   </component>
@@ -381,7 +271,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
@@ -558,7 +448,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32946146" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -615,7 +505,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -648,7 +540,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -681,13 +575,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13385826">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/INodeType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24859393">
-          <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -789,52 +676,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ToscaType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/IType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/TypeManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#398#399#0" expanded="false" />
-            <element signature="e#425#426#0" expanded="false" />
-            <element signature="e#488#489#0" expanded="false" />
-            <element signature="e#515#516#0" expanded="false" />
-            <element signature="e#627#628#0" expanded="false" />
-            <element signature="e#654#655#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/IConstraintGreaterThan.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="29" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ValueBoolean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
-          <folding>
-            <element signature="e#626#627#0" expanded="false" />
-            <element signature="e#692#693#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -868,22 +714,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/Tosca.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/ITypeStruct.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.092491835">
-          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/IToscaEnvironment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.25897714">
@@ -908,51 +738,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ValueFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="55" selection-start-line="11" selection-start-column="55" selection-end-line="11" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1362#1363#0" expanded="true" />
-            <element signature="e#1398#1399#0" expanded="true" />
-            <element signature="e#1450#1451#0" expanded="true" />
-            <element signature="e#1539#1540#0" expanded="true" />
-            <element signature="method#newList#0;class#ValueFactory#0" expanded="false" />
-            <element signature="e#10350#10351#0" expanded="true" />
-            <element signature="e#10422#10423#0" expanded="true" />
-            <element signature="e#10487#10488#0" expanded="true" />
-            <element signature="e#10528#10529#0" expanded="true" />
-            <element signature="e#10588#10589#0" expanded="true" />
-            <element signature="e#10634#10635#0" expanded="true" />
-            <element signature="e#10716#10717#0" expanded="true" />
-            <element signature="e#10772#10773#0" expanded="true" />
-            <element signature="e#10827#10828#0" expanded="true" />
-            <element signature="e#10879#10880#0" expanded="true" />
-            <element signature="e#10941#10942#0" expanded="true" />
-            <element signature="e#10996#10997#0" expanded="true" />
-            <element signature="e#11072#11073#0" expanded="true" />
-            <element signature="e#11134#11135#0" expanded="true" />
-            <element signature="e#11214#11215#0" expanded="true" />
-            <element signature="e#11280#11281#0" expanded="true" />
-            <element signature="e#11347#11348#0" expanded="true" />
-            <element signature="e#11401#11402#0" expanded="true" />
-            <element signature="e#11482#11483#0" expanded="true" />
-            <element signature="e#11542#11543#0" expanded="true" />
-            <element signature="e#11612#11613#0" expanded="true" />
-            <element signature="e#11669#11670#0" expanded="true" />
-            <element signature="e#11768#11769#0" expanded="true" />
-            <element signature="e#11816#11817#0" expanded="true" />
-            <element signature="e#11873#11874#0" expanded="true" />
-            <element signature="e#11919#11920#0" expanded="true" />
-            <element signature="e#11984#11985#0" expanded="true" />
-            <element signature="e#12038#12039#0" expanded="true" />
-            <element signature="e#12110#12111#0" expanded="true" />
-            <element signature="e#12164#12165#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/ITypeBasic.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.110990204">
@@ -961,51 +746,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/BasicTypeFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5745375">
-          <caret line="73" column="16" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2484#2485#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/IProperty.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.22198041">
           <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ToscaEnvironment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#424#445#0" expanded="true" />
-            <element signature="e#504#523#0" expanded="true" />
-            <element signature="e#836#837#0" expanded="true" />
-            <element signature="e#863#864#0" expanded="true" />
-            <element signature="e#921#922#0" expanded="true" />
-            <element signature="e#948#949#0" expanded="true" />
-            <element signature="e#1301#1302#0" expanded="true" />
-            <element signature="e#1328#1329#0" expanded="true" />
-            <element signature="e#1395#1396#0" expanded="true" />
-            <element signature="e#1441#1442#0" expanded="true" />
-            <element signature="e#1500#1501#0" expanded="true" />
-            <element signature="e#1546#1547#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/ITypeManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="50" selection-start-line="13" selection-start-column="50" selection-end-line="13" selection-end-column="50" />
           <folding />
         </state>
       </provider>
@@ -1026,34 +770,73 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/IType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.110990204">
+          <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/Property.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
+          <caret line="31" column="5" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#934#935#0" expanded="true" />
-            <element signature="e#961#962#0" expanded="true" />
-            <element signature="e#1005#1006#0" expanded="true" />
-            <element signature="e#1032#1033#0" expanded="true" />
-            <element signature="e#1085#1086#0" expanded="true" />
-            <element signature="e#1120#1121#0" expanded="true" />
-            <element signature="e#1182#1183#0" expanded="true" />
-            <element signature="e#1216#1217#0" expanded="true" />
+            <element signature="e#1277#1278#0" expanded="true" />
+            <element signature="e#1304#1305#0" expanded="true" />
+            <element signature="e#1348#1349#0" expanded="true" />
+            <element signature="e#1375#1376#0" expanded="true" />
+            <element signature="e#1428#1429#0" expanded="true" />
+            <element signature="e#1463#1464#0" expanded="true" />
+            <element signature="e#1525#1526#0" expanded="true" />
+            <element signature="e#1559#1560#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/StructType.java">
+    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/BasicTypeFactory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="31" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+          <caret line="14" column="14" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
+          <folding>
+            <element signature="e#2494#2495#0" expanded="true" />
+            <element signature="e#2590#2591#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/INodeType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ValueStruct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.77693146">
+          <caret line="48" column="24" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#586#587#0" expanded="true" />
-            <element signature="e#623#624#0" expanded="true" />
-            <element signature="e#1059#1255#0" expanded="true" />
-            <element signature="e#1254#1255#0" expanded="true" />
+            <element signature="e#783#784#0" expanded="true" />
+            <element signature="e#810#811#0" expanded="true" />
+            <element signature="e#878#879#0" expanded="true" />
+            <element signature="e#923#924#0" expanded="true" />
+            <element signature="e#1341#1383#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ValueFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="38" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#newList#0;class#ValueFactory#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1061,22 +844,90 @@
     <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/IValueStruct.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ValueStruct.java">
+    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/ITypeStruct.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4820457">
-          <caret line="55" column="32" selection-start-line="55" selection-start-column="32" selection-end-line="55" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/TypeStruct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="38" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#616#617#0" expanded="true" />
-            <element signature="e#643#644#0" expanded="true" />
-            <element signature="e#711#712#0" expanded="true" />
-            <element signature="e#756#757#0" expanded="true" />
-            <element signature="e#1174#1216#0" expanded="true" />
+            <element signature="e#624#625#0" expanded="true" />
+            <element signature="e#661#662#0" expanded="true" />
+            <element signature="e#1218#1219#0" expanded="true" />
+            <element signature="e#1252#1253#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/Tosca.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12948857">
+          <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/NodeType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6474429">
+          <caret line="35" column="31" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#801#802#0" expanded="true" />
+            <element signature="e#833#834#0" expanded="true" />
+            <element signature="e#878#879#0" expanded="true" />
+            <element signature="e#921#922#0" expanded="true" />
+            <element signature="e#973#974#0" expanded="true" />
+            <element signature="e#1023#1024#0" expanded="true" />
+            <element signature="e#1082#1083#0" expanded="true" />
+            <element signature="e#1131#1132#0" expanded="true" />
+            <element signature="e#1195#1196#0" expanded="true" />
+            <element signature="e#1228#1229#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ToscaEnvironment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#328#348#0" expanded="true" />
+            <element signature="e#407#426#0" expanded="true" />
+            <element signature="e#626#636#0" expanded="true" />
+            <element signature="e#1086#1087#0" expanded="true" />
+            <element signature="e#1113#1114#0" expanded="true" />
+            <element signature="e#1171#1172#0" expanded="true" />
+            <element signature="e#1198#1199#0" expanded="true" />
+            <element signature="e#1551#1552#0" expanded="true" />
+            <element signature="e#1578#1579#0" expanded="true" />
+            <element signature="e#1645#1646#0" expanded="true" />
+            <element signature="e#1691#1692#0" expanded="true" />
+            <element signature="e#1750#1751#0" expanded="true" />
+            <element signature="e#1796#1797#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/seaclouds/utils/toscamodel/ITypeManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20348205">
+          <caret line="11" column="65" selection-start-line="11" selection-start-column="65" selection-end-line="11" selection-end-column="65" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

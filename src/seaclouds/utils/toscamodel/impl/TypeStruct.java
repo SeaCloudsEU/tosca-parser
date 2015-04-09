@@ -12,8 +12,9 @@ import java.util.Set;
 /**
  * Created by pq on 08/04/2015.
  */
-class StructType implements ITypeStruct {
+class TypeStruct implements ITypeStruct {
     private final String name;
+    private final String description;
     private final Set<Property> properties;
     private final ITypeStruct supertype;
     private Class<? extends  IValueStruct> representation;
@@ -23,32 +24,22 @@ class StructType implements ITypeStruct {
     }
 
     public void setRepresentation(Class<? extends IValueStruct> representation) {
-        //todo check representation
+        //todo: check whether representation matches (copy from ValueStruct.java)
         this.representation = representation;
     }
 
-    public IValueStruct coerceValue(ValueStruct v) {
-        if (v.getType() != this)
-            return null;
-        if (representation == null)
-            return v;
-        Proxy.newProxyInstance(representation.getClassLoader(), new Class[]{representation}, new InvocationHandler() {
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                return null;
-            }
-        });
-        representation.
-        v.get();
-    }
-
-    public StructType(String tname, ITypeStruct parentType, Collection<Property> prop) {
+    public TypeStruct(String tname, String description,ITypeStruct parentType, Collection<Property> prop) {
         name = tname;
+        this.description = description;
         supertype = parentType;
         properties = new HashSet<Property>();
         properties.addAll(prop);
     }
 
+    @Override
+    public String getDescription() {
+        return description;
+    }
 
     @Override
     public String getName() {

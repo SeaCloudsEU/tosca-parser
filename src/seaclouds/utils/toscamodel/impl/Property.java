@@ -22,6 +22,14 @@ public class Property implements IProperty {
         constraints = new HashSet<IConstraint>();
         constraints.addAll(ct);
     }
+    public Property(IProperty copyFrom) {
+        name = copyFrom.getName();
+        type = copyFrom.getType();
+        //todo : check if default value matches type and constraints
+        defaultValue = copyFrom.getDefaultValue();
+        constraints = new HashSet<IConstraint>();
+        constraints.addAll(copyFrom.getConstraints());
+    }
     public Property addConstraint(String newName, IConstraint ct) {
         Collection<IConstraint> cl = Collections.singleton(ct);
         cl.addAll(constraints);
