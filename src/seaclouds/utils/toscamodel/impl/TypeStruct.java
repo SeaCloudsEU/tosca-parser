@@ -5,9 +5,7 @@ import seaclouds.utils.toscamodel.*;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by pq on 08/04/2015.
@@ -15,7 +13,7 @@ import java.util.Set;
 class TypeStruct implements ITypeStruct {
     private final String name;
     private final String description;
-    private final Set<Property> properties;
+    private final Map<String,Property> properties;
     private final ITypeStruct supertype;
     private Class<? extends  IValueStruct> representation;
 
@@ -28,12 +26,13 @@ class TypeStruct implements ITypeStruct {
         this.representation = representation;
     }
 
-    public TypeStruct(String tname, String description,ITypeStruct parentType, Collection<Property> prop) {
+    public TypeStruct(String tname, String description,ITypeStruct parentType, Collection<? extends IProperty> prop) {
         name = tname;
         this.description = description;
         supertype = parentType;
-        properties = new HashSet<Property>();
-        properties.addAll(prop);
+        properties = new HashMap<String, Property>();
+        for (IProperty p : prop)
+        properties.put(p.getName(), new Property(p));
     }
 
     @Override
@@ -52,9 +51,7 @@ class TypeStruct implements ITypeStruct {
     }
 
     @Override
-    public Set<IProperty> getProperties() {
-        Set<IProperty> result = new HashSet<IProperty>();
-        result.addAll(properties);
-        return result;
+    public Map<String,? extends IProperty> getProperties() {
+        return properties;
     }
 }

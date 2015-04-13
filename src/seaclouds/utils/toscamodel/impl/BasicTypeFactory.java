@@ -10,7 +10,17 @@ import java.util.Map;
  */
 public class BasicTypeFactory {
     static Map<EBasicTypeInfo,ITypeBasic> basicTypesCache = new HashMap<EBasicTypeInfo, ITypeBasic>();
-    static ITypeBasic getBasicType(final EBasicTypeInfo typeInfo) {
+
+    public static ITypeBasic getBasicType(String typeName) {
+        switch (typeName) {
+            case "string":
+                return getBasicType(EBasicTypeInfo.TOSCAString);
+            //TODO : other types
+            default:
+                return null;
+        }
+    }
+    public static ITypeBasic getBasicType(final EBasicTypeInfo typeInfo) {
         ITypeBasic t = basicTypesCache.get(typeInfo);
         if (t == null) {
             t = new ITypeBasic() {

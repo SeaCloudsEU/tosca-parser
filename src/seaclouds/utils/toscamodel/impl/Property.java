@@ -20,7 +20,8 @@ public class Property implements IProperty {
         type = t;
         defaultValue = dv;
         constraints = new HashSet<IConstraint>();
-        constraints.addAll(ct);
+        if (ct!= null)
+            constraints.addAll(ct);
     }
     public Property(IProperty copyFrom) {
         name = copyFrom.getName();

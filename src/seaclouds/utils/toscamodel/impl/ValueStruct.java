@@ -14,8 +14,8 @@ public class ValueStruct extends HashMap<String,IValue> implements IValueStruct,
     private final TypeStruct type;
     public ValueStruct(TypeStruct type){
         this.type = type;
-        for (IProperty p : type.getProperties()){
-            this.put(p.getName(),p.getDefaultValue());
+        for (Entry<String,? extends  IProperty> e : type.getProperties().entrySet()){
+            this.put(e.getKey(), e.getValue().getDefaultValue());
         }
         ProxyInfo p = new ProxyInfo();
         p.proxy = this;
@@ -23,7 +23,7 @@ public class ValueStruct extends HashMap<String,IValue> implements IValueStruct,
         this.representationCache.put(null,p);
     }
     @Override
-    public IType getType() {
+    public ITypeStruct getType() {
         return type;
     }
 

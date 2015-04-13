@@ -1,4 +1,6 @@
 package seaclouds.utils.toscamodel.impl;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.events.Event;
 import seaclouds.utils.toscamodel.*;
 
 /**
@@ -7,41 +9,36 @@ import seaclouds.utils.toscamodel.*;
 
 import java.io.Reader;
 import java.io.Writer;
-import java.util.*;
+import java.util.Iterator;
+import java.util.Map;
 
-public class ToscaEnvironment implements  IToscaEnvironment,ITypeManager,ITopology {
-    final Map<String,TypeStruct> structTypes = new HashMap<String, TypeStruct>();
-    final Map<String,INodeType> nodeTypes = new HashMap<String, INodeType>();
+public class ToscaEnvironment implements  IToscaEnvironment {
 
-    @Override
-    public IType createNewType(String typename,String description, ITypeStruct parentType, Collection< ? extends IProperty> schema) {
+    private final TypeManager typeManager = new TypeManager(this);
+    private final ToscaTopology topology = new ToscaTopology(this);
 
-        Collection<Property> c = new ArrayList<Property>();
-        for (IProperty p : schema)
-            c.add(new Property(p));
-
-        return new TypeStruct(typename,description,parentType,c);
-    }
-
-    @Override
-    public void bindTypeToInterface(Class<? extends  IValueStruct> interfaceType, String toscaTypeName) {
-        TypeStruct s = structTypes.get(toscaTypeName);
-        if(s != null)
-            s.setRepresentation(interfaceType);
-    }
 
     @Override
     public ITopology getTopology() {
-        return this;
+        return topology;
     }
 
     @Override
     public ITypeManager getTypeManager() {
-        return this;
+        return typeManager;
     }
 
     @Override
     public void readToscaFile(Reader input) {
+        Yaml parser = new Yaml();
+        Iterable<Event> parsed = parser.parse(input);
+        Iterator<Event> it = parsed.iterator();
+        Event e = null;
+        while (it.hasNext()){
+            e = it.next();
+             e.toString();
+        }
+
         // todo
     }
 
@@ -53,21 +50,6 @@ public class ToscaEnvironment implements  IToscaEnvironment,ITypeManager,ITopolo
     @Override
     public void writeToscaFile(Writer output) {
         // todo
-    }
-
-    @Override
-    public IToscaEnvironment getEnvironment() {
-        return this;
-    }
-
-    @Override
-    public INodeType getNodeType(String typename) {
-        return nodeTypes.get(typename);
-    }
-
-    @Override
-    public IType getType(String typename) {
-        return nodeTypes.get(typename);
     }
 
 };

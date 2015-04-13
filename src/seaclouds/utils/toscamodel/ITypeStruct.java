@@ -1,6 +1,6 @@
 package seaclouds.utils.toscamodel;
 
-import java.util.Set;
+import java.util.Map;
 
 /**
  * Created by pq on 19/03/2015.
@@ -9,5 +9,5 @@ public interface ITypeStruct extends IType {
     public String getName();
     public String getDescription();
     public ITypeStruct getSupertype();
-    public Set<IProperty> getProperties();
+    public Map<String,? extends IProperty> getProperties();
 }
