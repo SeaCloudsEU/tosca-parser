@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 /**
@@ -32,13 +33,15 @@ public final class Parser {
             e = it.next();
             if (e.is(Event.ID.DocumentStart))
             {
-                ParseDocument(it);
+                ParseDocument(e,it);
             } else {
                 Expect(e.is(Event.ID.StreamEnd));
                 Expect(!it.hasNext());
             }
         }
     }
+
+    ///////////////////////////////////////////////
 
     private void Expect(boolean guard) {
         if (!guard)
@@ -49,8 +52,7 @@ public final class Parser {
         Expect(e instanceof ScalarEvent);
         return ((ScalarEvent)e).getValue();
     }
-    private void ParseMapping(Iterator<Event> it, BiConsumer<String,Event> fn) {
-        Event e = it.next();
+    private void ParseMapping(Event e,Iterator<Event> it, BiConsumer<String,Event> fn) {
         Expect(e.is(Event.ID.MappingStart));
         while (it.hasNext())
         {
@@ -68,10 +70,36 @@ public final class Parser {
         throw new ParseError();
     }
 
-    //////////
+    // Accepts: a list block
+    // executes the consumer for each element of the list.
+    private void ParseSequence(Event e, Iterator<Event> it, Consumer<Event> fn) {
+        Expect(e.is(Event.ID.SequenceStart));
+        while(it.hasNext()) {
+            e = it.next();
+            fn.accept(e);
+        }
+    }
 
-    private void ParseDocument(Iterator<Event> it) {
-        ParseMapping(it, (key, value) -> {
+    // Accepts: any YAML
+    // does nothing but eating all events until the current element parsing is completed.
+    // To be used for non implemented/ignored stuff
+    private void Skip(Event e, Iterator<Event> it) {
+        if (e.is(Event.ID.Scalar)) {
+
+        } else if (e.is(Event.ID.SequenceStart)) {
+            ParseSequence(e, it, m -> Skip(m, it) );
+        } else if (e.is(Event.ID.MappingStart)){
+            ParseMapping(e,it,(k,v)->Skip(v,it));
+        }
+
+    }
+
+    /////////////////////////////////////////------////////
+
+    private void ParseDocument(Event e,Iterator<Event> it) {
+        Expect(e.is(Event.ID.DocumentStart));
+        e = it.next();
+        ParseMapping(e, it, (key, value) -> {
             switch (key) {
                 case "tosca_definitions_version":
                     String s = GetString(value);
@@ -83,7 +111,7 @@ public final class Parser {
                     break;
                 case "node_types":
                     Expect(value.is(Event.ID.MappingStart));
-                    ParseNodeTypes(it);
+                    ParseNodeTypes(value,it);
                     break;
                 default:
                     throw new ParseError();
@@ -91,17 +119,17 @@ public final class Parser {
         });
     }
 
-    private void ParseNodeTypes(Iterator<Event>it){
-        ParseMapping(it,(nodeTypeName,mapHead)->{
-            ParseNodeType(it,nodeTypeName);
+    private void ParseNodeTypes(Event e,Iterator<Event>it){
+        ParseMapping(e,it,(nodeTypeName,mapHead)->{
+            ParseNodeType(mapHead,it,nodeTypeName);
         });
     }
-    private void ParseNodeType (Iterator<Event>it,String typeName) {
+    private void ParseNodeType (Event e, Iterator<Event>it, String typeName) {
         final String[] parentTypeName = {null};
         final String[] description = {null};
         final Map<String,Property> properties = new HashMap<String,Property>();
         final ValueStruct[] attributes = {null};
-        ParseMapping(it, (key, value) -> {
+        ParseMapping(e,it, (key, value) -> {
             switch (key) {
                 case "derived_from":
                     Expect(parentTypeName[0] == null);
@@ -112,37 +140,44 @@ public final class Parser {
                     description[0] = GetString(value);
                     break;
                 case "properties":
-                    Expect(value.is(Event.ID.MappingStart));
-                    ParseMapping(it, (propname, ms) -> {
+                    //Expect(value.is(Event.ID.MappingStart));
+                    ParseMapping(value, it, (propname, ms) -> {
                         // TODO: add case for inline properties (needed?)
                         Expect(ms.is(Event.ID.MappingStart));
-                        ParseProperty(it,propname,properties);
+                        ParseProperty(ms,it,propname,properties);
                     });
                     break;
                 case "capabilities":
                     // TODO
+                    Skip(e,it);
                     break;
                 case "requirements":
-                    Expect(value.is(Event.ID.SequenceStart));
+                    //Expect(value.is(Event.ID.SequenceStart));
+                    ParseSequence(value,it,event->{
+                        ParseRequirement(event,it);
+                    });
                     break;
                 default:
                     throw new ParseError();
             }
         });
-        // TODO check not null
+        // TODO: check not null
         INodeType parentType = env.getTypeManager().getNodeType(parentTypeName[0]);
         NodeType newType =  new NodeType(typeName, description[0],parentType,properties.values(),attributes[0]);
     }
-    private void ParseProperty(Iterator<Event> it,String propname,Map<String,Property> properties) {
+    private void ParseProperty(Event e, Iterator<Event> it,String propname,Map<String,Property> properties) {
         final String[] typeName = {null};
         final IValue[] defaultValue = {null};
         final Collection<? extends IConstraint> constraints = new ArrayList<IConstraint>();
-        ParseMapping(it,(key,value)->{
+        ParseMapping(e,it,(key,value)->{
             switch (key) {
                 case "type":
                     typeName[0] = GetString(value);
                     break;
-                // TODO: implement constraints
+                case "constraints":
+                    // TODO: implement constraints
+                    Skip(e,it);
+                    break;
                 default:
                     throw new ParseError();
             }
@@ -151,5 +186,11 @@ public final class Parser {
         // TODO: check not null
         Property p = new Property(propname,t,defaultValue[0],constraints);
         properties.put(propname, p);
+    }
+    private  void ParseRequirement(Event e, Iterator<Event> it) {
+        ParseMapping(e,it,(key,value)->{
+            Skip(value,it);
+            // TODO: requirements not implemented
+        });
     }
 }

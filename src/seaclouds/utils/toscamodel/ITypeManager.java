@@ -10,8 +10,9 @@ import java.util.Map;
 public interface ITypeManager {
     public IToscaEnvironment getEnvironment();
     public IType getType(String typename);
-    public IType createNewType(String typename, String description,ITypeStruct parentType,  Collection<? extends  IProperty> schema);
-    public IType createNewNodeType(String typename, String description,String parentType,  Collection<? extends  IProperty> schema, IValueStruct attributes);
     public INodeType getNodeType(String typename);
+    public IType createNewType(String typename, String description,ITypeStruct parentType,  Collection<? extends  IProperty> schema);
+    public INodeType createNewNodeType(String typename, String description,String parentType,  Collection<? extends  IProperty> schema, IValueStruct attributes);
+
     public void bindTypeToInterface(Class<? extends IValueStruct> interfaceType,String toscaTypeName );
 }
