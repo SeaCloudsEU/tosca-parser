@@ -16,6 +16,10 @@ public interface IToscaEnvironment {
 
     public ISchemaDefinition newSchema(String description, INamedEntity derivedFrom);
 
+    public Iterable<INamedEntity> getTopology();
+    public Iterable<INodeType> getSubtypesOf(INodeType parentType);
+    public Iterable<ITypeStruct> getSubtypesOf(ITypeStruct parentType);
+
     /**
      *
      * @param input a reader containing the string to parse as tosca

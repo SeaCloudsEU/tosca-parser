@@ -6,10 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Writer;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -20,7 +17,7 @@ public class ToscaTest {
 
     @Test
     void Test1(){
-        //workflow to write a Tosca file
+        //workflow to write a Tosca file with cloud offerings
         IToscaEnvironment env = Tosca.newEnvironment();
         //load SeaClouds TOSCA types (such as seaclouds.nodes.compute) from file, or generate them with a procedure
         try {
@@ -54,6 +51,45 @@ public class ToscaTest {
         //write the environment into a new file
         Writer outputFile = null;
         env.writeFile(outputFile);
+
+    }
+
+    void Test2(){
+        //workflow to read a Tosca file with AAM and compare them with cloud offerings from discoverer
+        IToscaEnvironment discoverer = null; //would initialize with a connection to the discoverer
+        IToscaEnvironment aam = Tosca.newEnvironment();
+        INamedType snc = (INamedType) aam.getNamedEntity("seaclouds.nodes.compute");
+        Iterable<INamedEntity> topology = aam.getNodeTemplatesOfType(snc);
+        Map<INodeTemplate,List<INodeType>> matchmaking = new HashMap<>();
+        for (INamedEntity e: topology) {
+            INodeType aamType = ((INodeTemplate) e).supertype();
+            INodeType offeringType = null;
+            while(nodeType == null)
+            {
+                nodeType= (INodeType) discoverer.getNamedEntity(t.supertype().name());
+                t = (INodeTemplate) e;
+            }
+
+            Iterable<INodeType> potentialOfferings = discoverer.getSubtypesOf(nodeType);
+            ArrayList<INodeType> validOfferings = new ArrayList<>();
+            for (INodeType o : potentialOfferings)
+            {
+                boolean valid = true;
+                for (Map.Entry entry : t.attributes().get().entrySet()) {
+                    IValue offeringValue = o.attributes().get(entry.getKey());
+                    // this should compare using partial ordering
+                    //if (!MatchMaker.betterThan(offeringValue,entry.getValue()))
+                    if(false)
+                    {
+                        valid = false;
+                        break;
+                    }
+                }
+                if(valid)
+                    validOfferings.add(o);
+            }
+            matchmaking.put(t,validOfferings);
+        }
 
     }
 }

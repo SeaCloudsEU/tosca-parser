@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public interface IValueStruct extends IValue {
     @Override
-    ITypeStruct type();
+    IType type();
 
-    public Map<String,? extends IValue> get();
+    public Map<String,IValue> get();
 }
