@@ -6,8 +6,10 @@ import java.util.Map;
  * Created by pq on 16/04/2015.
  */
 public interface ISchemaDefinition {
-    Map<String,IProperty> properties();
-    Map<String,IConstraint> constraints();
+    Map<String,IProperty> declaredProperties();
+    Map<String,IProperty> allProperties();
+    Map<String,IConstraint> declaredConstraints();
+    Map<String,IConstraint> allConstraints();
 
     ISchemaDefinition supertype();
 

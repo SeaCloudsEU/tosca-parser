@@ -16,9 +16,9 @@ public interface IToscaEnvironment {
 
     public ISchemaDefinition newSchema(String description, INamedEntity derivedFrom);
 
-    public Iterable<INamedEntity> getTopology();
-    public Iterable<INodeType> getSubtypesOf(INodeType parentType);
-    public Iterable<ITypeStruct> getSubtypesOf(ITypeStruct parentType);
+    public Iterable<INodeTemplate> getNodeTemplatesOfType(INodeType rootType);
+    public Iterable<INodeType> getNodeTypesDerivingFrom(INodeType rootType);
+    public Iterable<ITypeStruct> getTypesDerivingFrom(ITypeStruct rootType);
 
     /**
      *

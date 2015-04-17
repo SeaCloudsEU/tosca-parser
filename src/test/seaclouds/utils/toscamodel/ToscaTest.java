@@ -58,28 +58,33 @@ public class ToscaTest {
         //workflow to read a Tosca file with AAM and compare them with cloud offerings from discoverer
         IToscaEnvironment discoverer = null; //would initialize with a connection to the discoverer
         IToscaEnvironment aam = Tosca.newEnvironment();
-        INamedType snc = (INamedType) aam.getNamedEntity("seaclouds.nodes.compute");
-        Iterable<INamedEntity> topology = aam.getNodeTemplatesOfType(snc);
+        INodeType snc = (INodeType) aam.getNamedEntity("seaclouds.nodes.compute");
+        Iterable<INodeTemplate> topology = aam.getNodeTemplatesOfType(snc);
         Map<INodeTemplate,List<INodeType>> matchmaking = new HashMap<>();
-        for (INamedEntity e: topology) {
-            INodeType aamType = ((INodeTemplate) e).supertype();
-            INodeType offeringType = null;
-            while(nodeType == null)
+        for (INodeTemplate e: topology) {
+            INodeType aamType = e.supertype();
+            INodeType offeringType =(INodeType) discoverer.getNamedEntity(aamType.name());
+            while(offeringType == null)
             {
-                nodeType= (INodeType) discoverer.getNamedEntity(t.supertype().name());
-                t = (INodeTemplate) e;
+                aamType = aamType.supertype();
+                offeringType = (INodeType) discoverer.getNamedEntity(aamType.name());
             }
 
-            Iterable<INodeType> potentialOfferings = discoverer.getSubtypesOf(nodeType);
+            Iterable<INodeType> potentialOfferings = discoverer.getNodeTypesDerivingFrom(offeringType);
             ArrayList<INodeType> validOfferings = new ArrayList<>();
             for (INodeType o : potentialOfferings)
             {
                 boolean valid = true;
-                for (Map.Entry entry : t.attributes().get().entrySet()) {
-                    IValue offeringValue = o.attributes().get(entry.getKey());
+                for (Map.Entry<String,IProperty> entry : aamType.allProperties().entrySet()) {
+                    IValue offeringValue = o.allAttributes().get(entry.getKey());
+                    IValue aamValue = o.allAttributes().get(entry.getKey());
+                    boolean constraintIsValid = true;
+                    for (IConstraint constraint : o.allProperties().get(entry.getKey()).constraints()) {
+                       constraintIsValid = constraintIsValid && constraint.verify(offeringValue);
+                    }
                     // this should compare using partial ordering
                     //if (!MatchMaker.betterThan(offeringValue,entry.getValue()))
-                    if(false)
+                    if(!constraintIsValid)
                     {
                         valid = false;
                         break;
@@ -88,7 +93,7 @@ public class ToscaTest {
                 if(valid)
                     validOfferings.add(o);
             }
-            matchmaking.put(t,validOfferings);
+            matchmaking.put(e,validOfferings);
         }
 
     }
