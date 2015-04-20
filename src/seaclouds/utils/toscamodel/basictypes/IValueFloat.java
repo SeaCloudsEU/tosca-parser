@@ -1,5 +1,7 @@
 package seaclouds.utils.toscamodel.basictypes;
 
+import seaclouds.utils.toscamodel.INamedEntity;
+import seaclouds.utils.toscamodel.IType;
 import seaclouds.utils.toscamodel.IValue;
 
 /**
@@ -7,4 +9,5 @@ import seaclouds.utils.toscamodel.IValue;
  */
 public interface IValueFloat extends IValue {
     public double get();
+
 }

@@ -9,7 +9,7 @@ import java.util.List;
  * Created by pq on 19/03/2015.
  */
 public interface ITypeList extends IType {
-    INamedEntity valueSchema();
+    IType valueSchema();
 
     @Override
     IValueList instantiate(Object value);

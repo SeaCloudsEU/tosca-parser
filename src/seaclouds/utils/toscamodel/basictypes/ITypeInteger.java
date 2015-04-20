@@ -13,4 +13,9 @@ public interface ITypeInteger extends INamedEntity, IType {
     IValueInteger instantiate(Integer value);
 
     IValueInteger instantiate(int value);
+
+    @Override default
+    String name() {
+        return "integer";
+    }
 }

@@ -11,4 +11,9 @@ public interface ITypeString extends INamedEntity, IType {
     IValueString instantiate(Object value);
 
     IValueString instantiate(String value);
+
+    @Override default
+    String name() {
+         return "string";
+     }
 }

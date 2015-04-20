@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by pq on 19/03/2015.
  */
-public interface ITypeMap extends INamedEntity, IType {
+public interface ITypeMap extends IType {
     INamedEntity valueType();
 
     @Override

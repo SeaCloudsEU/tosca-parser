@@ -8,4 +8,7 @@ import seaclouds.utils.toscamodel.IType;
  */
 public interface ITypeScalarUnit extends INamedEntity, IType {
     public IValueScalarUnit instantiate(float scalar,String unit);
+
+    @Override default
+    String name() { return "scalar-unit"; }
 }

@@ -1,5 +1,6 @@
 package seaclouds.utils.toscamodel.basictypes;
 
+import seaclouds.utils.toscamodel.INamedEntity;
 import seaclouds.utils.toscamodel.IValue;
 
 /**
@@ -7,4 +8,5 @@ import seaclouds.utils.toscamodel.IValue;
  */
 public interface IValueBoolean extends IValue {
     public boolean get();
+
 }
