@@ -5,10 +5,10 @@ import java.util.Map;
 /**
  * Created by pq on 16/04/2015.
  */
-public interface INodeTemplate extends INamedEntity,ISchemaDefinition {
+public interface INodeTemplate extends ISchemaDefinition {
     Map<String,IValue> declaredAttributes();
     Map<String,IValue> allAttributes();
 
     @Override
-    INodeType supertype();
+    INodeType baseType();
 }

@@ -10,10 +10,9 @@ import java.util.Map;
 public interface IToscaEnvironment {
     public INamedEntity getNamedEntity(String entityName);
 
-    public ITypeStruct newNamedType(String name,ISchemaDefinition schema);
-    public INodeType newNodeType(String name,ISchemaDefinition properties, Map<String,Object> attributes);
-
-    public ISchemaDefinition newSchema(String description, INamedEntity derivedFrom,Map<String,IProperty> extendedProperties);
+    public INamedEntity registerType(String entityName, IType t);
+    public INamedEntity registerNodeType(String entityName, INodeType t);
+    public INamedEntity registerTemplate(String entityName, INodeTemplate t);
 
     public Iterable<INodeTemplate> getNodeTemplatesOfType(INodeType rootType);
     public Iterable<INodeType> getNodeTypesDerivingFrom(INodeType rootType);

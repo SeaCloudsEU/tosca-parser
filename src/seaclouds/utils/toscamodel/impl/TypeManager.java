@@ -13,7 +13,7 @@ import java.util.Map;
 class TypeManager {
     private ToscaEnvironment toscaEnvironment;
 
-    final Map<String, INamedType> basicTypes = new HashMap<>();
+    final Map<String, IType> basicTypes = new HashMap<>();
     final Map<String, TypeStruct> structTypes = new HashMap<String, TypeStruct>();
     final Map<String, INodeType> nodeTypes = new HashMap<String, INodeType>();
 
@@ -62,11 +62,4 @@ class TypeManager {
         return nodeTypes.get(typename);
     }
 
-    public INamedType getType(String typename) {
-        // TODO: check if someone was assuming this method to always return a struct type
-        INamedType ret = structTypes.get(typename);
-        if(ret == null)
-            ret = basicTypes.get(typename);
-        return ret;
-    }
 }

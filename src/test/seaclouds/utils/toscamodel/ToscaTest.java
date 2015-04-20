@@ -1,6 +1,8 @@
 package seaclouds.utils.toscamodel;
 
 import org.junit.Test;
+import seaclouds.utils.toscamodel.basictypes.ITypeScalarUnit;
+import seaclouds.utils.toscamodel.basictypes.IValueScalarUnit;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

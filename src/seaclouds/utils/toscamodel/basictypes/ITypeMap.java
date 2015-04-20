@@ -1,11 +1,14 @@
-package seaclouds.utils.toscamodel;
+package seaclouds.utils.toscamodel.basictypes;
+
+import seaclouds.utils.toscamodel.INamedEntity;
+import seaclouds.utils.toscamodel.IType;
 
 import java.util.Map;
 
 /**
  * Created by pq on 19/03/2015.
  */
-public interface ITypeMap extends INamedType {
+public interface ITypeMap extends INamedEntity, IType {
     INamedEntity valueType();
 
     @Override

@@ -1,4 +1,7 @@
-package seaclouds.utils.toscamodel;
+package seaclouds.utils.toscamodel.basictypes;
+
+import seaclouds.utils.toscamodel.INamedEntity;
+import seaclouds.utils.toscamodel.IType;
 
 import java.util.List;
 

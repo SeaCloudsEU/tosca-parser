@@ -1,7 +1,9 @@
 package seaclouds.utils.toscamodel.impl;
 
+import com.google.common.collect.Maps;
 import seaclouds.utils.toscamodel.*;
 
+import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,83 +12,65 @@ import java.util.Set;
 /**
  * Created by pq on 20/04/2015.
  */
-public class TypeStruct extends TypeBinding implements ITypeStruct {
-    final SchemaDefinition schemaDefinition;
-    final ToscaEnvironment environment;
-    final String name;
-
-    public TypeStruct( ToscaEnvironment environment, SchemaDefinition schemaDefinition, String name) {
-        TypeStruct bt = (TypeStruct)schemaDefinition.baseType();
-        assert(bt.environment.equals(environment));
-
-        this.schemaDefinition = schemaDefinition;
-        this.environment = environment;
-        this.name = name;
+public class TypeStruct  extends  SchemaDefinition implements ITypeStruct {
+    public TypeStruct(ITypeStruct baseType, String description, Map<String, IProperty> properties) {
+        super(baseType, description, properties);
+    }
+    public TypeStruct(ISchemaDefinition copyFrom) {
+        super(copyFrom.baseType(),copyFrom.description(),copyFrom.allProperties());
     }
 
     @Override
     public IValueStruct instantiate(Object value) {
-        if(value instanceof Map )
+        return null;
+    }
+
+    public IValueStruct instantiate(IValueStruct v) {
+        if(v.type().equals(this))
+            return v;
+        else if (v.type().isCompatible(this)) {
+            return instantiate(v.get());
+        } else
+            return null;
+    }
+    @Override
+    public IValueStruct instantiate(Map<String, Object> value) {
+        Map<String,IValue> vmap = new HashMap<>();
+        for(Map.Entry<String,Object> e: value.entrySet())
         {
-            Map<String,Object> cast = Collections.checkedMap((Map)value,String.class,Object.class);
-            return instantiate(cast);
+            IProperty p = allProperties.get(e.getKey());
+            vmap.put(e.getKey(), p.type().instantiate(e.getValue()));
         }
+        return new SchemaValue(this,vmap);
+    }
+
+    @Override
+    public IType coerce(IConstraint constraint) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public IValueStruct instantiate(Map<String, Object> value) {
-        Map<String,IValue> values = new HashMap<>();
-        value.forEach((k,v)-> {
-            IProperty p = allProperties().get(k);
-            values.put(k,p.type().instantiate(v));
-        });
-        return new SchemaValue(this,values);
+    public IProperty makeProperty(Object defaultValue) {
+        return new Property(this,defaultValue);
     }
 
     @Override
-    public String name() {
-        return name;
-    }
-
-    @Override
-    public boolean isCompatible(ISchemaDefinition otherType) {
-        return schemaDefinition.isCompatible(otherType);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return schemaDefinition.equals(obj)
-                && obj instanceof TypeStruct && ((TypeStruct) obj).name.equals(name);
-    }
-
-    @Override
-    public String description() {
-        return schemaDefinition.description();
+    public boolean derivesFrom(IType parent) {
+        return this.equals(parent) || ((ITypeStruct)baseType).derivesFrom(parent);
     }
 
     @Override
     public ITypeStruct baseType() {
-        return (ITypeStruct)schemaDefinition.baseType();
+        return (ITypeStruct) super.baseType();
     }
 
     @Override
-    public Set<IConstraint> allConstraints() {
-        return schemaDefinition.allConstraints();
+    public ITypeStruct addProperty(String propName, IType propType,Object propValue) {
+        return new TypeStruct(baseType(),description,extendSchema(propName,propType,propValue));
     }
 
     @Override
-    public Set<IConstraint> declaredConstraints() {
-        return schemaDefinition.declaredConstraints();
-    }
-
-    @Override
-    public Map<String, IProperty> allProperties() {
-        return schemaDefinition.allProperties();
-    }
-
-    @Override
-    public Map<String, IProperty> declaredProperties() {
-        return schemaDefinition.declaredProperties();
+    public ISchemaDefinition changeDescription(String newDescription) {
+        return new TypeStruct(baseType(),newDescription,declaredProperties());
     }
 }

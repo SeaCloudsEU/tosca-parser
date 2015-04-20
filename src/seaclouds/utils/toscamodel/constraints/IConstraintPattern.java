@@ -1,4 +1,6 @@
-package seaclouds.utils.toscamodel;
+package seaclouds.utils.toscamodel.constraints;
+
+import seaclouds.utils.toscamodel.IConstraint;
 
 import java.util.regex.Pattern;
 

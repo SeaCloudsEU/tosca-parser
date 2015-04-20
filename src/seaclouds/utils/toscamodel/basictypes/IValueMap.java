@@ -1,5 +1,8 @@
-package seaclouds.utils.toscamodel;
+package seaclouds.utils.toscamodel.basictypes;
 
+
+import seaclouds.utils.toscamodel.IType;
+import seaclouds.utils.toscamodel.IValue;
 
 import java.util.Map;
 

@@ -1,4 +1,6 @@
-package seaclouds.utils.toscamodel;
+package seaclouds.utils.toscamodel.constraints;
+
+import seaclouds.utils.toscamodel.IConstraint;
 
 /**
  * Created by pq on 19/03/2015.

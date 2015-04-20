@@ -9,5 +9,4 @@ import java.util.Set;
 public interface IProperty {
     IType type();
     IValue defaultValue();
-    Set<? extends IConstraint> constraints();
 }
