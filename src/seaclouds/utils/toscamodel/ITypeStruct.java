@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public interface ITypeStruct extends INamedType, ISchemaDefinition {
     @Override
-    ITypeStruct supertype();
+    ITypeStruct baseType();
 
     @Override
     IValueStruct instantiate(Object value);

@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.Writer;
 import java.util.*;
 import java.util.logging.Logger;

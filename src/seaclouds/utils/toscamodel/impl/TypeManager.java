@@ -1,6 +1,6 @@
 package seaclouds.utils.toscamodel.impl;
 
-import seaclouds.utils.oldtoscamodel.*;
+import seaclouds.utils.toscamodel.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,8 +10,10 @@ import java.util.Map;
 /**
  * Created by pq on 13/04/2015.
  */
-class TypeManager implements ITypeManager {
+class TypeManager {
     private ToscaEnvironment toscaEnvironment;
+
+    final Map<String, INamedType> basicTypes = new HashMap<>();
     final Map<String, TypeStruct> structTypes = new HashMap<String, TypeStruct>();
     final Map<String, INodeType> nodeTypes = new HashMap<String, INodeType>();
 
@@ -19,10 +21,13 @@ class TypeManager implements ITypeManager {
         this.toscaEnvironment = toscaEnvironment;
     }
 
-    @Override
-    public ITypeStruct createNewType(String typename, String description, ITypeStruct parentType, Collection<? extends IProperty> schema) {
+    public SchemaDefinition newSchema(String description, INamedEntity derivedFrom) {
+        assert(derivedFrom instanceof ISchemaDefinition);
+        return new SchemaDefinition(derivedFrom,)
+    }
+    public ITypeStruct createNewType(String typename, ISchemaDefinition schema) {
 
-        Collection<Property> c = new ArrayList<Property>();
+        Collection<IProperty> c = new ArrayList<IProperty>();
 
         TypeStruct newType = new TypeStruct(typename, description, parentType, schema);
         structTypes.put(typename, newType);
@@ -47,29 +52,21 @@ class TypeManager implements ITypeManager {
         return newType;
     }
 
-    @Override
     public void bindTypeToInterface(Class<? extends IValueStruct> interfaceType, String toscaTypeName) {
         TypeStruct s = structTypes.get(toscaTypeName);
         if (s != null)
             s.setRepresentation(interfaceType);
     }
 
-    @Override
-    public IToscaEnvironment getEnvironment() {
-        return toscaEnvironment;
-    }
-
-    @Override
     public INodeType getNodeType(String typename) {
         return nodeTypes.get(typename);
     }
 
-    @Override
-    public IType getType(String typename) {
+    public INamedType getType(String typename) {
         // TODO: check if someone was assuming this method to always return a struct type
-        IType ret = structTypes.get(typename);
+        INamedType ret = structTypes.get(typename);
         if(ret == null)
-            ret = BasicTypeFactory.getBasicType(typename);
+            ret = basicTypes.get(typename);
         return ret;
     }
 }

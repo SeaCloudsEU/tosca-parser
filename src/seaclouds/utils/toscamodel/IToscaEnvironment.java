@@ -3,7 +3,6 @@ package seaclouds.utils.toscamodel;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by pq on 16/04/2015.
@@ -14,7 +13,7 @@ public interface IToscaEnvironment {
     public ITypeStruct newNamedType(String name,ISchemaDefinition schema);
     public INodeType newNodeType(String name,ISchemaDefinition properties, Map<String,Object> attributes);
 
-    public ISchemaDefinition newSchema(String description, INamedEntity derivedFrom);
+    public ISchemaDefinition newSchema(String description, INamedEntity derivedFrom,Map<String,IProperty> extendedProperties);
 
     public Iterable<INodeTemplate> getNodeTemplatesOfType(INodeType rootType);
     public Iterable<INodeType> getNodeTypesDerivingFrom(INodeType rootType);

@@ -1,7 +1,5 @@
 package seaclouds.utils.toscamodel;
 
-import seaclouds.utils.toscamodel.IValueStruct;
-
 import java.util.Map;
 
 /**

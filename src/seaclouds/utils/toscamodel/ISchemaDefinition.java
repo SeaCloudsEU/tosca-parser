@@ -1,6 +1,7 @@
 package seaclouds.utils.toscamodel;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by pq on 16/04/2015.
@@ -8,10 +9,8 @@ import java.util.Map;
 public interface ISchemaDefinition {
     Map<String,IProperty> declaredProperties();
     Map<String,IProperty> allProperties();
-    Map<String,IConstraint> declaredConstraints();
-    Map<String,IConstraint> allConstraints();
 
-    ISchemaDefinition supertype();
+    ISchemaDefinition baseType();
 
     String description();
 

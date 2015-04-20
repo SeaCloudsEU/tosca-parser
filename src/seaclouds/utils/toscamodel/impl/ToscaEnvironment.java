@@ -1,7 +1,5 @@
 package seaclouds.utils.toscamodel.impl;
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.events.Event;
-import seaclouds.utils.oldtoscamodel.*;
+import seaclouds.utils.toscamodel.*;
 
 /**
  * Created by pq on 05/04/15.
@@ -9,46 +7,65 @@ import seaclouds.utils.oldtoscamodel.*;
 
 import java.io.Reader;
 import java.io.Writer;
-import java.util.Iterator;
+import java.util.Map;
 
-public class ToscaEnvironment implements  IToscaEnvironment {
+class ToscaEnvironment implements  IToscaEnvironment {
 
     private final TypeManager typeManager = new TypeManager(this);
-    private final ToscaTopology topology = new ToscaTopology(this);
+    //private final ToscaTopology topology = new ToscaTopology(this);
 
 
     @Override
-    public ITopology getTopology() {
-        return topology;
-    }
-
-    @Override
-    public ITypeManager getTypeManager() {
-        return typeManager;
-    }
-
-    @Override
-    public void readToscaFile(Reader input) {
-        Yaml parser = new Yaml();
-        Iterable<Event> parsed = parser.parse(input);
-        Iterator<Event> it = parsed.iterator();
-        Event e = null;
-        while (it.hasNext()){
-            e = it.next();
-             e.toString();
-        }
-
+    public void readFile(Reader input, boolean sharedTypes) {
         // todo
     }
 
     @Override
-    public void writePartialToscaFile(Writer output, Iterable<String> identifiers) {
+    public void writeFile(Writer output) {
         // todo
     }
 
     @Override
-    public void writeToscaFile(Writer output) {
+    public INamedEntity getNamedEntity(String entityName) {
+        INamedEntity ret = null;
         // todo
+//        if (ret == null)
+//            ret = topology.getNodeTemplate(entityName);
+        if (ret == null)
+            ret = typeManager.getNodeType(entityName);
+        if (ret == null)
+            ret = typeManager.getType(entityName);
+
+        return null;
     }
 
+    @Override
+    public ITypeStruct newNamedType(String name, ISchemaDefinition schema) {
+        return typeManager.createNewType(name,"",);
+    }
+
+    @Override
+    public INodeType newNodeType(String name, ISchemaDefinition properties, Map<String, Object> attributes) {
+        return null;
+    }
+
+    @Override
+    public ISchemaDefinition newSchema(String description, INamedEntity derivedFrom) {
+        return null;
+    }
+
+    @Override
+    public Iterable<INodeTemplate> getNodeTemplatesOfType(INodeType rootType) {
+        return null;
+    }
+
+    @Override
+    public Iterable<INodeType> getNodeTypesDerivingFrom(INodeType rootType) {
+        return null;
+    }
+
+    @Override
+    public Iterable<ITypeStruct> getTypesDerivingFrom(ITypeStruct rootType) {
+        return null;
+    }
 };
