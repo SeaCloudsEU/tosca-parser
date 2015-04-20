@@ -1,7 +1,6 @@
 package seaclouds.utils.toscamodel.impl;
 
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import seaclouds.utils.toscamodel.*;
 
 import java.util.*;
@@ -60,6 +59,16 @@ abstract public class SchemaDefinition implements ISchemaDefinition {
         return newSchema;
     }
 
+    protected Map<String,IValue> valueConvert(Map<String,? extends Object> value) {
+
+        Map<String,IValue> vmap = new HashMap<>();
+        for(Map.Entry<String,? extends Object> e : value.entrySet()) {
+            IProperty p = allProperties.get(e.getKey());
+            vmap.put(e.getKey(), p.type().instantiate(e.getValue()));
+        }
+        return vmap;
+    }
+
     @Override
     public Map<String, IProperty> allProperties() {
         return allProperties;
@@ -67,6 +76,7 @@ abstract public class SchemaDefinition implements ISchemaDefinition {
 
     @Override
     public Map<String, IProperty> declaredProperties() {
+
         return declaredProperties;
     }
 }

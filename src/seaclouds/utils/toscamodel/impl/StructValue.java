@@ -8,8 +8,20 @@ import java.util.*;
 /**
  * Created by pq on 20/04/2015.
  */
-class SchemaValue implements  IValueStruct {
-    @Override
+class StructValue implements  IValueStruct {
+
+    final Map<String,IValue> properties;
+    final ISchemaDefinition type;
+
+    public StructValue(ITypeStruct type, Map<String, IValue> properties){
+        this.properties = properties;
+        this.type = type;
+    }
+
+    public ITypeStruct type() {
+        return (ITypeStruct) type();
+    }
+
     public Map<String, IValue> get() {
         return new Mappable();
     }
@@ -121,15 +133,4 @@ class SchemaValue implements  IValueStruct {
             return properties.hashCode();
         }
     }
-    final Map<String,IValue> properties;
-    final ISchemaDefinition type;
-    public SchemaValue(ISchemaDefinition type, Map<String,IValue> properties){
-        this.type = type;
-        this.properties = properties;
-    }
-
-    public ISchemaDefinition type() {
-        return type;
-    }
-
 }
