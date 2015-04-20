@@ -1,8 +1,8 @@
-package seaclouds.utils.oldtoscamodel.impl;
+package seaclouds.utils.toscamodel.impl;
 
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.events.*;
-import seaclouds.utils.oldtoscamodel.*;
+import seaclouds.utils.toscamodel.*;
 
 import java.io.Reader;
 import java.util.*;
@@ -17,9 +17,9 @@ public final class Parser {
     private class ParseError extends  RuntimeException {};
     static final Logger logger = Logger.getLogger("logger");
 
-    ToscaEnvironment env;
+    IToscaEnvironment env;
     Yaml yaml = new Yaml();
-    Parser(ToscaEnvironment env){
+    Parser(IToscaEnvironment env){
         this.env = env;
     }
 
@@ -93,6 +93,31 @@ public final class Parser {
 
     }
 
+    private Object ParseAny(Event e, Iterator<Event> it) {
+        if (e.is(Event.ID.Scalar)) {
+            return ScalarParse(e);
+        } else if (e.is(Event.ID.SequenceStart)) {
+            List res = new ArrayList<>();
+            ParseSequence(e, it, m -> {
+                res.add(ParseAny(m,it));
+            } );
+            return res;
+        } else if (e.is(Event.ID.MappingStart)){
+            Map<String,Object> res = new HashMap<>();
+            ParseMapping(e,it,(k,v)->{
+                res.put(k, ParseAny(v,it));
+            });
+            return res;
+        }
+        return null;
+
+    }
+
+    private Object ScalarParse(Event e) {
+        // TODO not implemented
+        return ((ScalarEvent)e).getValue();
+    }
+
     /////////////////////////////////////////------////////
 
     private void ParseDocument(Event e,Iterator<Event> it) {
@@ -110,7 +135,7 @@ public final class Parser {
                     break;
                 case "node_types":
                     Expect(value.is(Event.ID.MappingStart));
-                    ParseNodeTypes(value,it);
+                    ParseNodeTypes(value, it);
                     break;
                 default:
                     throw new ParseError();
@@ -119,18 +144,18 @@ public final class Parser {
     }
 
     private void ParseNodeTypes(Event e,Iterator<Event>it){
-        ParseMapping(e,it,(nodeTypeName,mapHead)->{
-            ParseNodeType(mapHead,it,nodeTypeName);
+        ParseMapping(e, it, (nodeTypeName, mapHead) -> {
+            ParseNodeType(mapHead, it, nodeTypeName);
         });
     }
-    private void ParseNodeType (Event e, Iterator<Event>it, String typeName) {
+    private void ParseNodeTemplate (Event e, Iterator<Event>it, String templateName) {
         final String[] parentTypeName = {null};
         final String[] description = {null};
-        final Map<String,Property> properties = new HashMap<String,Property>();
-        final ValueStruct[] attributes = {null};
+        final Map<String,Property> properties = new HashMap<>();
+        final Map<String,Object> attributes = new HashMap<>();
         ParseMapping(e,it, (key, value) -> {
             switch (key) {
-                case "derived_from":
+                case "type":
                     Expect(parentTypeName[0] == null);
                     parentTypeName[0] = GetString(value);
                     break;
@@ -160,14 +185,95 @@ public final class Parser {
                     throw new ParseError();
             }
         });
-        // TODO: check not null
-        INodeType parentType = env.getTypeManager().getNodeType(parentTypeName[0]);
-        NodeType newType =  new NodeType(typeName, description[0],parentType,properties.values(),attributes[0]);
+        INodeType parentType;
+        if(parentTypeName[0] == null)
+            parentType = null;
+        else {
+            INamedEntity pt = env.getNamedEntity(parentTypeName[0]);
+            if(pt == null || !(pt instanceof INodeType))
+                throw new ParseError();
+            parentType = (INodeType)pt;
+        }
+        INodeTemplate newTemplate = env.newTemplate(parentType);
+        for(Map.Entry<String,? extends  IProperty> entry : properties.entrySet()) {
+            parentType = parentType.addProperty(entry.getKey(),entry.getValue().type(),entry.getValue().defaultValue());
+        }
+        env.registerTemplate(templateName, newTemplate);
     }
+    private void ParseNodeType (Event e, Iterator<Event>it, String typeName) {
+        final String[] parentTypeName = {null};
+        final String[] description = {null};
+        final Map<String,Property> properties = new HashMap<>();
+        final Map<String,Object> attributes = new HashMap<>();
+        ParseMapping(e,it, (key, value) -> {
+            switch (key) {
+                case "derived_from":
+                    Expect(parentTypeName[0] == null);
+                    parentTypeName[0] = GetString(value);
+                    break;
+                case "description":
+                    Expect(description[0] == null);
+                    description[0] = GetString(value);
+                    break;
+                case "properties":
+                    //Expect(value.is(Event.ID.MappingStart));
+                    ParseMapping(value, it, (propname, ms) -> {
+                        // TODO: add case for inline properties (needed?)
+                        ParseProperty(ms,it,propname,properties);
+                    });
+                    break;
+                case "attributes":
+                    //Expect(value.is(Event.ID.MappingStart));
+                    ParseMapping(value, it, (propname, ms) -> {
+                        // TODO: add case for inline properties (needed?)
+                        ParseAttribute(ms, it, propname, attributes);
+                    });
+                    break;
+                case "capabilities":
+                    // TODO
+                    Skip(e,it);
+                    break;
+                case "requirements":
+                    //Expect(value.is(Event.ID.SequenceStart));
+                    ParseSequence(value,it,event->{
+                        ParseRequirement(event,it);
+                    });
+                    break;
+                default:
+                    throw new ParseError();
+            }
+        });
+        INodeType parentType;
+        if(parentTypeName[0] == null)
+            parentType = null;
+        else {
+            INamedEntity pt = env.getNamedEntity(parentTypeName[0]);
+            if(pt == null || !(pt instanceof INodeType))
+                throw new ParseError();
+            parentType = (INodeType)pt;
+        }
+        INodeType newType = parentType;
+        for(Map.Entry<String,? extends  IProperty> entry : properties.entrySet()) {
+            parentType = parentType.addProperty(entry.getKey(),entry.getValue().type(),entry.getValue().defaultValue());
+        }
+        env.registerNodeType(typeName, newType);
+    }
+
+    private void ParseAttribute(Event e, Iterator<Event> it, String propname, Map<String, Object> attributes) {
+        final String[] typeName = {null};
+        final Object[] defaultValue = {null};
+        ParseMapping(e,it,(key,value)->{
+            switch (key) {
+                case "type":
+            }
+        });
+    }
+
+
     private void ParseProperty(Event e, Iterator<Event> it,String propname,Map<String,Property> properties) {
         final String[] typeName = {null};
-        final IValue[] defaultValue = {null};
-        final Collection<? extends IConstraint> constraints = new ArrayList<IConstraint>();
+        final Object[] defaultValue = {null};
+        final Collection<IConstraint> constraints = new ArrayList<IConstraint>();
         ParseMapping(e,it,(key,value)->{
             switch (key) {
                 case "type":
@@ -181,9 +287,11 @@ public final class Parser {
                     throw new ParseError();
             }
         });
-        IType t = env.getTypeManager().getType(typeName[0]);
-        // TODO: check not null
-        Property p = new Property(propname,t,defaultValue[0],constraints);
+        IType t = (IType)env.getNamedEntity(typeName[0]);
+        for(IConstraint c : constraints) {
+            t  = t.coerce(c);
+        }
+        Property p = new Property(t,defaultValue[0]);
         properties.put(propname, p);
     }
     private  void ParseRequirement(Event e, Iterator<Event> it) {

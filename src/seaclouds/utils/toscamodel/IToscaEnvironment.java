@@ -14,6 +14,8 @@ public interface IToscaEnvironment {
     public INamedEntity registerNodeType(String entityName, INodeType t);
     public INamedEntity registerTemplate(String entityName, INodeTemplate t);
 
+    INodeTemplate newTemplate(INodeType parentType);
+
     public Iterable<INodeTemplate> getNodeTemplatesOfType(INodeType rootType);
     public Iterable<INodeType> getNodeTypesDerivingFrom(INodeType rootType);
     public Iterable<ITypeStruct> getTypesDerivingFrom(ITypeStruct rootType);
@@ -26,4 +28,5 @@ public interface IToscaEnvironment {
     public void readFile(Reader input, boolean sharedTypes);
 
     public void writeFile(Writer output);
+
 }

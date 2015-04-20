@@ -42,6 +42,10 @@ public class TypeString implements ITypeString {
         return new ValueString(value);
     }
 
+    public IValueString instantiate(IValueString value) {
+        return value;
+    }
+
     @Override
     public IType coerce(IConstraint constraint) {
         return new CoercedType(this, Collections.singleton(constraint));
