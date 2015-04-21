@@ -1,6 +1,5 @@
 package seaclouds.utils.toscamodel.basictypes.impl;
 
-import com.sun.javafx.tools.ant.Application;
 import seaclouds.utils.toscamodel.IConstraint;
 import seaclouds.utils.toscamodel.IType;
 import seaclouds.utils.toscamodel.basictypes.ITypeRange;

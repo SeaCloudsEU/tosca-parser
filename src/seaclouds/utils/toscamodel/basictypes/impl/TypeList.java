@@ -2,9 +2,11 @@ package seaclouds.utils.toscamodel.basictypes.impl;
 
 import seaclouds.utils.toscamodel.IConstraint;
 import seaclouds.utils.toscamodel.IType;
+import seaclouds.utils.toscamodel.IValue;
 import seaclouds.utils.toscamodel.basictypes.ITypeList;
 import seaclouds.utils.toscamodel.basictypes.IValueList;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,28 @@ public class TypeList implements ITypeList {
             instances.put(t,l);
         }
         return l;
+    }
+    class ValueList implements  IValueList {
+        final List<IValue> value;
+
+        public ValueList(List<IValue> value) {
+            this.value = value;
+        }
+
+        @Override
+        public List<IValue> get() {
+            return value;
+        }
+
+        @Override
+        public IType valueType() {
+            return valueSchema;
+        }
+
+        @Override
+        public ITypeList type() {
+            return TypeList.this;//instances.get(valueSchema);
+        }
     }
     final IType valueSchema;
 
@@ -40,8 +64,11 @@ public class TypeList implements ITypeList {
 
     @Override
     public IValueList instantiate(List value) {
-
-        return ;
+        List<IValue> v = new ArrayList<>();
+        for (Object o : value) {
+            v.add(valueSchema.instantiate(o));
+        }
+        return new ValueList(v);
     }
 
     @Override
