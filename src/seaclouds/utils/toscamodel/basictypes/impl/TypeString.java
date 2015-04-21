@@ -34,7 +34,8 @@ public class TypeString implements ITypeString {
 
     @Override
     public IValueString instantiate(Object value) {
-        return null;
+        if(value instanceof String) return instantiate((String) value);
+        throw new IllegalArgumentException();
     }
 
     @Override
