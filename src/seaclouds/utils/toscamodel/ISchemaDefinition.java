@@ -17,6 +17,8 @@ public interface ISchemaDefinition {
     ISchemaDefinition addProperty(String propName,IType propType,Object defaultValue);
     ISchemaDefinition changeDescription(String newDescription);
 
+    boolean derivesFrom(ISchemaDefinition parentSchema);
+
     /**
      * equals yields true when the schema, name and declaration environment are equal.
      * isCompatible yields true when the properties are compatible

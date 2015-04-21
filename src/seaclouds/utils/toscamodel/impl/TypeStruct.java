@@ -39,10 +39,6 @@ public class TypeStruct  extends  SchemaDefinition implements ITypeStruct {
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    public IProperty makeProperty(Object defaultValue) {
-        return new Property(this,defaultValue);
-    }
 
     @Override
     public boolean derivesFrom(IType parent) {
@@ -62,5 +58,10 @@ public class TypeStruct  extends  SchemaDefinition implements ITypeStruct {
     @Override
     public ISchemaDefinition changeDescription(String newDescription) {
         return new TypeStruct(baseType(),newDescription,declaredProperties());
+    }
+
+    @Override
+    public boolean derivesFrom(ITypeStruct parentSchema) {
+        return parentSchema.equals(this) || baseType().derivesFrom(parentSchema);
     }
 }

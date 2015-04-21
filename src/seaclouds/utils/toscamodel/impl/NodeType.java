@@ -1,6 +1,5 @@
 package seaclouds.utils.toscamodel.impl;
 
-import seaclouds.utils.toscamodel.INodeTemplate;
 import seaclouds.utils.toscamodel.INodeType;
 import seaclouds.utils.toscamodel.IProperty;
 import seaclouds.utils.toscamodel.IType;

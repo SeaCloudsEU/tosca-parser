@@ -12,9 +12,9 @@ public interface IToscaEnvironment {
 
     public INamedEntity registerType(String entityName, IType t);
     public INamedEntity registerNodeType(String entityName, INodeType t);
-    public INamedEntity registerTemplate(String entityName, INodeTemplate t);
+    public INamedEntity registerNodeTemplate(String entityName, INodeTemplate t);
 
-    INodeTemplate newTemplate(INodeType parentType);
+    INodeTemplate newTemplate(INodeType type);
 
     public Iterable<INodeTemplate> getNodeTemplatesOfType(INodeType rootType);
     public Iterable<INodeType> getNodeTypesDerivingFrom(INodeType rootType);
@@ -23,7 +23,7 @@ public interface IToscaEnvironment {
     /**
      *
      * @param input a reader containing the string to parse as tosca
-     * @param sharedTypes types imported this way will not be written to the output file
+     * @param sharedTypes if true, types imported this way will not be written to the output file
      */
     public void readFile(Reader input, boolean sharedTypes);
 

@@ -1,11 +1,13 @@
 package seaclouds.utils.toscamodel.impl;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Iterators;
 import seaclouds.utils.toscamodel.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import javax.xml.soap.Node;
+import java.util.*;
 
 /**
  * Created by pq on 13/04/2015.
@@ -15,51 +17,105 @@ class TypeManager {
 
     final Map<String, IType> basicTypes = new HashMap<>();
     final Map<String, TypeStruct> structTypes = new HashMap<String, TypeStruct>();
-    final Map<String, INodeType> nodeTypes = new HashMap<String, INodeType>();
+    final Map<String, NodeType> nodeTypes = new HashMap<String, NodeType>();
+    final Map<String, NodeTemplate> nodeTemplates = new HashMap<String, NodeTemplate>();
 
     public TypeManager(ToscaEnvironment toscaEnvironment) {
         this.toscaEnvironment = toscaEnvironment;
-    }
-
-    public SchemaDefinition newSchema(String description, INamedEntity derivedFrom) {
-        assert(derivedFrom instanceof ISchemaDefinition);
-        return new SchemaDefinition(derivedFrom,)
-    }
-    public ITypeStruct createNewType(String typename, ISchemaDefinition schema) {
-
-        Collection<IProperty> c = new ArrayList<IProperty>();
-
-        TypeStruct newType = new TypeStruct(typename, description, parentType, schema);
-        structTypes.put(typename, newType);
-        return newType;
-    }
-
-    public ITypeStruct createNewNodeType(String typename, String description, String parentTypeName, Collection<? extends IProperty> schema, IValueStruct attributes) {
-
-        Collection<Property> c = new ArrayList<Property>();
-        for (IProperty p : schema)
-            c.add(new Property(p));
-
-        NodeType parentType = (NodeType) this.getNodeType(parentTypeName);
-        ValueStruct v = new ValueStruct(parentType);
-        for (Map.Entry<String, ? extends IProperty> e : attributes.getType().getProperties().entrySet()) {
-            IValue pval = attributes.getProperty(e.getKey());
-            if (pval != null && e.getValue().getDefaultValue() != null && e.getValue().getDefaultValue() != pval)
-                v.setProperty(e.getKey(), pval);
-        }
-        NodeType newType = new NodeType(typename, description, parentType, schema, v);
-        nodeTypes.put(typename, newType);
-        return newType;
-    }
-
-    public void bindTypeToInterface(Class<? extends IValueStruct> interfaceType, String toscaTypeName) {
-        TypeStruct s = structTypes.get(toscaTypeName);
-        if (s != null)
-            s.setRepresentation(interfaceType);
     }
 
     public INodeType getNodeType(String typename) {
         return nodeTypes.get(typename);
     }
 
+    public IType getType(String typename) {
+        IType ret = basicTypes.get(typename);
+        if (ret == null)
+            ret = structTypes.get(typename);
+        return ret;
+    }
+
+
+    public Iterable<INodeType> getNodeTypesDerivingFrom(INodeType rootType) {
+        return Iterables.transform(
+                Iterables.filter(nodeTypes.values(),
+                        t -> t.derivesFrom(rootType)),
+                t -> (INodeType)t);
+    }
+
+    public Iterable<ITypeStruct> getTypesDerivingFrom(ITypeStruct rootType) {
+        return Iterables.transform(
+                Iterables.filter(structTypes.values(),
+                        t -> t.derivesFrom(rootType)),
+                t -> (ITypeStruct)t);
+    }
+
+    public INamedEntity registerType(String name,IType type) {
+
+        if(type instanceof  ITypeStruct) {
+            ITypeStruct struct = (ITypeStruct) type;
+            final TypeStruct unnamed;
+            if (nodeTypes.containsKey(name))
+                return null;
+            if (struct instanceof TypeStruct)
+                unnamed = (TypeStruct) struct;
+            else {
+                ITypeStruct parentType = struct.baseType();
+                if (parentType != null && !(parentType instanceof TypeStruct))
+                    parentType = structTypes.get(((INamedEntity) parentType).name());
+                unnamed = new TypeStruct((TypeStruct) parentType, struct.description(), struct.declaredProperties());
+            }
+            NamedStruct t = new NamedStruct(name, unnamed);
+            structTypes.put(name, t);
+            return t;
+        } else if (type instanceof  ICoercedType) {
+            //todo
+        }
+        return null;
+    }
+
+    public INamedEntity registerNodeType(String name,INodeType nodeType) {
+        final NodeType unnamed;
+        if(nodeTypes.containsKey(name))
+            return null;
+        if(nodeType instanceof  NodeType)
+            unnamed = (NodeType)nodeType;
+        else {
+            INodeType parentType = nodeType.baseType();
+            if(parentType != null && !(parentType instanceof NodeType))
+                parentType = nodeTypes.get(((INamedEntity)parentType).name());
+            unnamed = new NodeType((NodeType)parentType,nodeType.description(),nodeType.declaredProperties(),nodeType.declaredAttributes());
+        }
+        NamedNodeType t = new NamedNodeType(name,(NodeType) unnamed);
+        nodeTypes.put(name,t);
+        return t;
+    }
+
+    public INamedEntity registerNodeTemplate(String name, INodeTemplate nodeType) {
+        final NodeTemplate unnamed;
+        if(nodeTypes.containsKey(name))
+            return null;
+        if(nodeType instanceof  NodeTemplate)
+            unnamed = (NodeTemplate)nodeType;
+        else {
+            INodeType parentType = nodeType.baseType();
+            if(parentType != null && !(parentType instanceof NodeTemplate))
+                parentType = nodeTypes.get(((INamedEntity)parentType).name());
+            unnamed = new NodeTemplate((NodeType)parentType,nodeType.description(),nodeType.declaredProperties(),nodeType.declaredAttributes());
+        }
+        NamedNodeTemplate t = new NamedNodeTemplate(name, unnamed);
+        nodeTemplates.put(name,t);
+        return t;
+    }
+
+    public Iterable<INodeTemplate> getNodeTemplatesOfType(INodeType rootType) {
+        return Iterables.transform(
+                Iterables.filter(nodeTemplates.values(),
+                        t -> t.derivesFrom(rootType)),
+                t -> (INodeTemplate)t);
+    }
+
+    public INodeTemplate getNodeTemplate(String entityName) {
+        return nodeTemplates.get(entityName);
+    }
 }

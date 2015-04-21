@@ -17,4 +17,16 @@ public interface ITypeStruct extends ISchemaDefinition, IType {
 
     @Override
     ITypeStruct addProperty(String propName, IType propType,Object defaultValue);
+
+    @Override default
+    boolean derivesFrom(IType parent) {
+        return parent instanceof ITypeStruct && derivesFrom((ITypeStruct) parent);
+    }
+
+    @Override default
+    boolean derivesFrom(ISchemaDefinition parent){
+        return parent instanceof ITypeStruct && derivesFrom((ITypeStruct) parent);
+    }
+
+    boolean derivesFrom(ITypeStruct parent);
 }

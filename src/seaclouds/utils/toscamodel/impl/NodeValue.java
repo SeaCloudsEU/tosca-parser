@@ -31,6 +31,12 @@ public abstract class NodeValue extends SchemaDefinition {
 
     @Override
     public INodeType baseType() {
+
         return (INodeType)super.baseType();
+    }
+
+    @Override
+    public boolean derivesFrom(ISchemaDefinition nodeType) {
+        return this.equals(nodeType) || (baseType!= null && baseType().derivesFrom(nodeType));
     }
 }

@@ -7,7 +7,6 @@ import seaclouds.utils.toscamodel.*;
 
 import java.io.Reader;
 import java.io.Writer;
-import java.util.Map;
 
 class ToscaEnvironment implements  IToscaEnvironment {
 
@@ -17,7 +16,8 @@ class ToscaEnvironment implements  IToscaEnvironment {
 
     @Override
     public void readFile(Reader input, boolean sharedTypes) {
-        // todo
+        final Parser parser = new Parser(this,sharedTypes);
+        parser.Parse(input);
     }
 
     @Override
@@ -32,40 +32,50 @@ class ToscaEnvironment implements  IToscaEnvironment {
 //        if (ret == null)
 //            ret = topology.getNodeTemplate(entityName);
         if (ret == null)
-            ret = typeManager.getNodeType(entityName);
+            ret = (INamedEntity)typeManager.getNodeTemplate(entityName);
         if (ret == null)
-            ret = typeManager.getType(entityName);
+            ret = (INamedEntity)typeManager.getNodeType(entityName);
+        if (ret == null)
+            ret = (INamedEntity)typeManager.getType(entityName);
 
-        return null;
+        return ret;
     }
 
-    @Override
-    public ITypeStruct newNamedType(String name, ISchemaDefinition schema) {
-        return typeManager.createNewType(name,"",);
-    }
-
-    @Override
-    public INodeType newNodeType(String name, ISchemaDefinition properties, Map<String, Object> attributes) {
-        return null;
-    }
-
-    @Override
-    public ISchemaDefinition newSchema(String description, INamedEntity derivedFrom) {
-        return null;
-    }
 
     @Override
     public Iterable<INodeTemplate> getNodeTemplatesOfType(INodeType rootType) {
-        return null;
+        //return topology.getNodeTemplatesOfType(INodeType rootType);
+        return typeManager.getNodeTemplatesOfType(rootType);
     }
 
     @Override
     public Iterable<INodeType> getNodeTypesDerivingFrom(INodeType rootType) {
-        return null;
+        return typeManager.getNodeTypesDerivingFrom(rootType);
     }
 
     @Override
     public Iterable<ITypeStruct> getTypesDerivingFrom(ITypeStruct rootType) {
+
+        return typeManager.getTypesDerivingFrom(rootType);
+    }
+
+    @Override
+    public INamedEntity registerType(String entityName, IType t) {
+        return typeManager.registerType(entityName,t);
+    }
+
+    @Override
+    public INamedEntity registerNodeType(String entityName, INodeType t) {
+        return typeManager.registerNodeType(entityName,t);
+    }
+
+    @Override
+    public INamedEntity registerNodeTemplate(String entityName, INodeTemplate t) {
+        return typeManager.registerNodeTemplate(entityName, t);
+    }
+
+    @Override
+    public INodeTemplate newTemplate(INodeType type) {
         return null;
     }
 };

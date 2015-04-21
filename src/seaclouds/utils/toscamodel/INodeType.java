@@ -15,4 +15,6 @@ public interface INodeType extends ISchemaDefinition {
     @Override
     INodeType changeDescription(String newDescription);
 
+    @Override
+    INodeType baseType();
 }

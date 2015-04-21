@@ -15,12 +15,19 @@ import java.util.logging.Logger;
  */
 public final class Parser {
     private class ParseError extends  RuntimeException {};
+    final boolean loadAsShared;
     static final Logger logger = Logger.getLogger("logger");
 
     IToscaEnvironment env;
     Yaml yaml = new Yaml();
     Parser(IToscaEnvironment env){
         this.env = env;
+        this.loadAsShared = false;
+    }
+
+    Parser(IToscaEnvironment env, boolean sharedTypes) {
+        this.env = env;
+        this.loadAsShared = sharedTypes;
     }
 
     public void Parse(Reader input) {
@@ -113,7 +120,7 @@ public final class Parser {
 
     }
 
-    private Object ScalarParse(Event e) {
+    private String ScalarParse(Event e) {
         // TODO not implemented
         return ((ScalarEvent)e).getValue();
     }
@@ -198,7 +205,7 @@ public final class Parser {
         for(Map.Entry<String,? extends  IProperty> entry : properties.entrySet()) {
             parentType = parentType.addProperty(entry.getKey(),entry.getValue().type(),entry.getValue().defaultValue());
         }
-        env.registerTemplate(templateName, newTemplate);
+        env.registerNodeTemplate(templateName, newTemplate);
     }
     private void ParseNodeType (Event e, Iterator<Event>it, String typeName) {
         final String[] parentTypeName = {null};
