@@ -42,7 +42,9 @@ public class TypeInteger implements ITypeInteger {
 
     @Override
     public IValueInteger instantiate(Object value) {
+        if(value instanceof IValueInteger) return (IValueInteger)value;
         if(value instanceof Integer) return  instantiate((Integer) value);
+        if(value instanceof String) return instantiate((String) value);
         throw new IllegalArgumentException();
     }
 
@@ -58,6 +60,10 @@ public class TypeInteger implements ITypeInteger {
 
     @Override
     public IValueInteger instantiate(Integer value) {
+        return new ValueInteger(value);
+    }
+
+    public IValueInteger instantiate(String value) {
         return new ValueInteger(value);
     }
 

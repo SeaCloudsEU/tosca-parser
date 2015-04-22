@@ -153,8 +153,16 @@ public final class Parser {
                     ParseNodeTypes(value, it);
                     break;
                 case "topology_template":
+                    ParseMapping(value, it, (k2, v2) -> {
+                        switch (k2) {
+                            case "node_templates":
+                                ParseMapping(v2, it, (k3, v3) -> ParseNodeTemplate(v3, it, k3));
+                                break;
+                            default:
+                                throw new ParseError();
+                        }
+                    });
                     // TODO: topology
-                    Skip(value,it);
                     break;
                 default:
                     throw new ParseError();
@@ -247,13 +255,17 @@ public final class Parser {
                     break;
                 case "capabilities":
                     // TODO
-                    Skip(e,it);
+                    Skip(e, it);
                     break;
                 case "requirements":
                     //Expect(value.is(Event.ID.SequenceStart));
-                    ParseSequence(value,it,event->{
-                        ParseRequirement(event,it);
+                    ParseSequence(value, it, event -> {
+                        ParseRequirement(event, it);
                     });
+                    break;
+                case "attributes":
+                    //Expect(value.is(Event.ID.MappingStart));
+                    ParseAttributes(value, it, attributes);
                     break;
                 default:
                     throw new ParseError();
@@ -270,11 +282,15 @@ public final class Parser {
         }
         INodeTemplate newTemplate = env.newTemplate(parentType);
         for(Map.Entry<String,? extends  IProperty> entry : properties.entrySet()) {
-            parentType = parentType.addProperty(entry.getKey(),entry.getValue().type(),entry.getValue().defaultValue());
+            newTemplate = newTemplate.addProperty(entry.getKey(),entry.getValue().type(),entry.getValue().defaultValue());
+        }
+        for(Map.Entry<String,Object> entry: attributes.entrySet()) {
+            IValue v = newTemplate.allProperties().get(entry.getKey()).type().instantiate(entry.getValue());
+            newTemplate.declaredAttributes().put(entry.getKey(),v);
         }
         //TODO: make portable "hidden"
-        NamedNodeType s = (NamedNodeType)env.registerNodeTemplate(templateName, newTemplate);
-        s.hidden = this.loadAsShared;
+        NamedNodeTemplate s = (NamedNodeTemplate)env.registerNodeTemplate(templateName, newTemplate);
+        //s.hidden = this.loadAsShared;
     }
     private void ParseNodeType (Event e, Iterator<Event>it, String typeName) {
         final String[] parentTypeName = {null};
@@ -300,10 +316,7 @@ public final class Parser {
                     break;
                 case "attributes":
                     //Expect(value.is(Event.ID.MappingStart));
-                    ParseMapping(value, it, (propname, ms) -> {
-                        // TODO: add case for inline properties (needed?)
-                        ParseAttribute(ms, it, propname, attributes);
-                    });
+                    ParseAttributes(value, it, attributes);
                     break;
                 case "capabilities":
                     // TODO
@@ -331,20 +344,18 @@ public final class Parser {
         for(Map.Entry<String,? extends  IProperty> entry : properties.entrySet()) {
             newType = newType.addProperty(entry.getKey(), entry.getValue().type(), entry.getValue().defaultValue());
         }
-        env.registerNodeType(typeName, newType);
+        for(Map.Entry<String,Object> entry: attributes.entrySet()) {
+            IValue v = newType.allProperties().get(entry.getKey()).type().instantiate(entry.getValue());
+            newType.declaredAttributes().put(entry.getKey(),v);
+        }
+        //TODO: make 'hidden' portable
+        NamedNodeType s = (NamedNodeType) env.registerNodeType(typeName, newType);
+        s.hidden=true;
     }
 
-    private void ParseAttribute(Event e, Iterator<Event> it, String propname, Map<String, Object> attributes) {
-        final String[] typeName = {null};
-        final Object[] defaultValue = {null};
+    private void ParseAttributes(Event e, Iterator<Event> it, Map<String, Object> attributes) {
         ParseMapping(e,it,(key,value)->{
-            switch (key) {
-                case "type":
-                    typeName[0] = GetString(value);
-                    break;
-                default:
-                    throw new ParseError();
-            }
+            attributes.put(key,ParseAny(value,it));
         });
     }
 

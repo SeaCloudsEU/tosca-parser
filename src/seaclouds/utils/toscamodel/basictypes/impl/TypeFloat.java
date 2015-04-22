@@ -36,9 +36,15 @@ public class TypeFloat implements ITypeFloat{
 
     @Override
     public IValueFloat instantiate(Object value) {
-        if( value instanceof  Float) return instantiate(((Float) value).doubleValue());
+        if( value instanceof IValueFloat) return (IValueFloat)value;
+        if( value instanceof Float) return instantiate(((Float) value).doubleValue());
         if( value instanceof Double) return instantiate(((Double) value).doubleValue());
+        if( value instanceof String) return instantiate((String) value);
         throw new IllegalArgumentException();
+    }
+
+    public IValueFloat instantiate(String value){
+        return instantiate(Double.valueOf(value));
     }
 
     @Override

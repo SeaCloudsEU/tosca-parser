@@ -7,6 +7,7 @@ import seaclouds.utils.toscamodel.*;
 
 import java.io.Reader;
 import java.io.Writer;
+import java.util.Collections;
 
 public class ToscaEnvironment implements  IToscaEnvironment {
 
@@ -76,6 +77,6 @@ public class ToscaEnvironment implements  IToscaEnvironment {
 
     @Override
     public INodeTemplate newTemplate(INodeType type) {
-        return null;
+        return new NodeTemplate((NamedNodeType)type,"", Collections.emptyMap(),Collections.emptyMap());
     }
 };
