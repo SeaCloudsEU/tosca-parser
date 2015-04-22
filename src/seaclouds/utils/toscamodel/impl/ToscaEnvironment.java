@@ -8,7 +8,7 @@ import seaclouds.utils.toscamodel.*;
 import java.io.Reader;
 import java.io.Writer;
 
-class ToscaEnvironment implements  IToscaEnvironment {
+public class ToscaEnvironment implements  IToscaEnvironment {
 
     private final TypeManager typeManager = new TypeManager(this);
     //private final ToscaTopology topology = new ToscaTopology(this);

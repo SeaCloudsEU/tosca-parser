@@ -28,12 +28,13 @@ public class Matchmaker {
 
         Map<INodeTemplate,List<INodeType>> matchmaking = new HashMap<>();
         for (INodeTemplate e: matchableTopology) {
-            INodeType aamType = e.supertype();
-            INodeType offeringType =(INodeType) offeringEnvironment.getNamedEntity(aamType.name());
+            INodeType aamType = e.baseType();
+            String templateName = ((INamedEntity)aamType).name();
+            INodeType offeringType =(INodeType) offeringEnvironment.getNamedEntity(templateName);
             while(offeringType == null)
             {
-                aamType = aamType.supertype();
-                offeringType = (INodeType) offeringEnvironment.getNamedEntity(aamType.name());
+                aamType = aamType.baseType();
+                offeringType = (INodeType) offeringEnvironment.getNamedEntity(templateName);
             }
 
             Iterable<INodeType> potentialOfferings = offeringEnvironment.getNodeTypesDerivingFrom(offeringType);
@@ -45,9 +46,9 @@ public class Matchmaker {
                     IValue offeringValue = o.allAttributes().get(entry.getKey());
                     IValue aamValue = o.allAttributes().get(entry.getKey());
                     boolean constraintIsValid = true;
-                    for (IConstraint constraint : o.allProperties().get(entry.getKey()).constraints()) {
-                       constraintIsValid = constraintIsValid && constraint.verify(offeringValue);
-                    }
+                    //for (IConstraint constraint : o.allProperties().get(entry.getKey()).constraints()) {
+                    //   constraintIsValid = constraintIsValid && constraint.verify(offeringValue);
+                    //}
                     // this should compare using partial ordering
                     //if (!MatchMaker.betterThan(offeringValue,entry.getValue()))
 

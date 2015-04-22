@@ -5,6 +5,7 @@ import seaclouds.utils.toscamodel.IProperty;
 import seaclouds.utils.toscamodel.ISchemaDefinition;
 import seaclouds.utils.toscamodel.IValue;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -16,8 +17,13 @@ public abstract class NodeValue extends SchemaDefinition {
 
     public NodeValue(NodeType baseType, String description, Map<String, IProperty> properties, Map<String, ? extends Object> attributes) {
         super(baseType, description, properties);
-        this.allAttributes = baseType.allAttributes();
-        this.attributes = baseType.valueConvert(attributes);
+        this.allAttributes = new HashMap<>();
+        if(baseType!= null) {
+            this.allAttributes.putAll(baseType.allAttributes());
+            this.attributes = baseType.valueConvert(attributes);
+        } else {
+            this.attributes = new HashMap<>();
+        }
         this.allAttributes.putAll(this.attributes);
     }
 

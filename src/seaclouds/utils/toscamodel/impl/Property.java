@@ -13,9 +13,14 @@ class Property implements IProperty {
     final IType type;
     final IValue defaultValue;
 
+    @Override
+    public String toString() {
+        return type.toString() + "=" +(defaultValue == null?"?":defaultValue.toString());
+    }
+
     public Property(IType type, Object defaultValue) {
         this.type = type;
-        this.defaultValue = type.instantiate(defaultValue);
+        this.defaultValue = defaultValue==null?null:type.instantiate(defaultValue);
     }
 
     public Property(IProperty property) {

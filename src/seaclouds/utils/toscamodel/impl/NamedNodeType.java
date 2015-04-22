@@ -13,6 +13,12 @@ import java.util.Map;
  */
 public class NamedNodeType extends  NodeType implements INamedEntity {
     final String name;
+    public boolean hidden = false;
+
+    @Override
+    public String toString() {
+        return name();
+    }
 
     public NamedNodeType(String name, NodeType unnamedNodeType) {
         super((NodeType)unnamedNodeType.baseType, unnamedNodeType.description,unnamedNodeType.declaredProperties ,unnamedNodeType.attributes);

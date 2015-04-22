@@ -5,6 +5,7 @@ import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import seaclouds.utils.toscamodel.*;
+import seaclouds.utils.toscamodel.basictypes.impl.*;
 
 import javax.xml.soap.Node;
 import java.util.*;
@@ -16,12 +17,29 @@ class TypeManager {
     private ToscaEnvironment toscaEnvironment;
 
     final Map<String, IType> basicTypes = new HashMap<>();
-    final Map<String, TypeStruct> structTypes = new HashMap<String, TypeStruct>();
-    final Map<String, NodeType> nodeTypes = new HashMap<String, NodeType>();
-    final Map<String, NodeTemplate> nodeTemplates = new HashMap<String, NodeTemplate>();
+    final Map<String, NamedStruct> structTypes = new HashMap<String, NamedStruct>();
+    final Map<String, NamedNodeType> nodeTypes = new HashMap<String, NamedNodeType>();
+    final Map<String, NamedNodeTemplate> nodeTemplates = new HashMap<String, NamedNodeTemplate>();
 
     public TypeManager(ToscaEnvironment toscaEnvironment) {
         this.toscaEnvironment = toscaEnvironment;
+        INamedEntity[] basicTypes = {
+                TypeString.instance(),
+                TypeBoolean.instance(),
+                TypeFloat.instance(),
+                TypeInteger.instance(),
+                TypeRange.instance(),
+                TypeScalarUnit.instance()
+        };
+
+        for (INamedEntity basicType : basicTypes) {
+            this.basicTypes.put(basicType.name(),(IType) basicType);
+        }
+
+        this.nodeTypes.put("tosca.nodes.Root",NodeRoot.instance());
+        NamedStruct emptyStruct = new NamedStruct("emptyStruct",new TypeStruct(null,"",Collections.emptyMap()));
+        emptyStruct.hidden = true;
+        this.structTypes.put("emptyStruct",emptyStruct);
     }
 
     public INodeType getNodeType(String typename) {
@@ -39,14 +57,14 @@ class TypeManager {
     public Iterable<INodeType> getNodeTypesDerivingFrom(INodeType rootType) {
         return Iterables.transform(
                 Iterables.filter(nodeTypes.values(),
-                        t -> t.derivesFrom(rootType)),
+                        t -> t.derivesFrom(rootType) && !t.hidden),
                 t -> (INodeType)t);
     }
 
     public Iterable<ITypeStruct> getTypesDerivingFrom(ITypeStruct rootType) {
         return Iterables.transform(
                 Iterables.filter(structTypes.values(),
-                        t -> t.derivesFrom(rootType)),
+                        t -> t.derivesFrom(rootType) && !t.hidden),
                 t -> (ITypeStruct)t);
     }
 

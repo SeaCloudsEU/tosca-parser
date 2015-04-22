@@ -9,6 +9,8 @@ public interface INodeTemplate extends ISchemaDefinition {
     Map<String,IValue> declaredAttributes();
     Map<String,IValue> allAttributes();
 
+    //Map<String,IValue> requirements();
+
     @Override
     INodeTemplate addProperty(String propName, IType propType, Object defaultValue);
 

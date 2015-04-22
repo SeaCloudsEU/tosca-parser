@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 public class ToscaTest {
     private static final Logger logger = Logger.getLogger("logger");
 
+    /*
     @Test
     void Test1(){
         //workflow to write a Tosca file with cloud offerings
@@ -97,5 +98,5 @@ public class ToscaTest {
             matchmaking.put(e,validOfferings);
         }
 
-    }
+    }*/
 }

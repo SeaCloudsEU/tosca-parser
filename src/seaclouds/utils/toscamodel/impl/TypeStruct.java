@@ -62,6 +62,6 @@ public class TypeStruct  extends  SchemaDefinition implements ITypeStruct {
 
     @Override
     public boolean derivesFrom(ITypeStruct parentSchema) {
-        return parentSchema.equals(this) || baseType().derivesFrom(parentSchema);
+        return parentSchema.equals(this) || (baseType()!= null && baseType().derivesFrom(parentSchema));
     }
 }

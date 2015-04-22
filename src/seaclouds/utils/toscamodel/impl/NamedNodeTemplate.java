@@ -22,4 +22,8 @@ public class NamedNodeTemplate extends NodeTemplate implements INamedEntity {
     }
 
 
+    @Override
+    public String toString() {
+        return name();
+    }
 }

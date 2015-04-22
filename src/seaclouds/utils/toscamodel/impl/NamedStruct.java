@@ -12,6 +12,13 @@ import java.util.Map;
  * Created by pq on 20/04/2015.
  */
 public class NamedStruct extends  TypeStruct implements INamedEntity {
+    public boolean hidden = false;
+
+    @Override
+    public String toString() {
+        return name();
+    }
+
     public NamedStruct(String name,ITypeStruct unnamedType) {
         super(unnamedType);
         this.name = name;
