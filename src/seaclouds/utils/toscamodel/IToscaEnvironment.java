@@ -20,12 +20,18 @@ public interface IToscaEnvironment {
     public Iterable<INodeType> getNodeTypesDerivingFrom(INodeType rootType);
     public Iterable<ITypeStruct> getTypesDerivingFrom(ITypeStruct rootType);
 
+    public void renameEntity(String entityName, String newEntityName);
+
+
+    public void hideEntity(String entityName);
+    public void unhideEntity(String entityName);
+
     /**
      *
      * @param input a reader containing the string to parse as tosca
-     * @param sharedTypes if true, types imported this way will not be written to the output file
+     * @param hideTypes if true, types imported this way will not be written to the output file
      */
-    public void readFile(Reader input, boolean sharedTypes);
+    public void readFile(Reader input, boolean hideTypes);
 
     public void writeFile(Writer output);
 

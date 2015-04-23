@@ -136,4 +136,24 @@ class TypeManager {
     public INodeTemplate getNodeTemplate(String entityName) {
         return nodeTemplates.get(entityName);
     }
+
+    public void renameEntity(String entityName, String newEntityName) {
+        NamedNodeTemplate template = nodeTemplates.remove(entityName);
+        if(template != null)
+        {
+            template.rename(newEntityName);
+            nodeTemplates.put(newEntityName,template);
+        }
+        NamedNodeType nodeType = nodeTypes.remove(entityName);
+        if(nodeType != null)
+        {
+            nodeType.rename(newEntityName);
+            nodeTypes.put(newEntityName,nodeType);
+        }
+        NamedStruct struct = structTypes.remove(entityName);
+        if(struct != null) {
+            struct.rename(newEntityName);
+            structTypes.put(newEntityName,struct);
+        }
+    }
 }

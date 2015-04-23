@@ -13,6 +13,7 @@ import java.util.Map;
  */
 public class NamedStruct extends  TypeStruct implements INamedEntity {
     public boolean hidden = false;
+    private String name;
 
     @Override
     public String toString() {
@@ -29,10 +30,13 @@ public class NamedStruct extends  TypeStruct implements INamedEntity {
         return name;
     }
 
-    final String name;
 
     @Override
     public ITypeStruct addProperty(String propName, IType propType, Object propValue) {
         return new TypeStruct(this,description,Collections.singletonMap(propName,new Property(propType,propValue)));
+    }
+
+    public void rename(String newEntityName) {
+        name = newEntityName;
     }
 }

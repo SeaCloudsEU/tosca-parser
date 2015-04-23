@@ -17,9 +17,32 @@ public class ToscaEnvironment implements  IToscaEnvironment {
 
 
     @Override
-    public void readFile(Reader input, boolean sharedTypes) {
-        final Parser parser = new Parser(this,sharedTypes);
+    public void readFile(Reader input, boolean hideTypes) {
+        final Parser parser = new Parser(this, hideTypes);
         parser.Parse(input);
+    }
+
+    @Override
+    public void renameEntity(String entityName, String newEntityName) {
+        typeManager.renameEntity(entityName,newEntityName);
+    }
+
+    @Override
+    public void hideEntity(String entityName) {
+        INamedEntity ret = getNamedEntity(entityName);
+        if(ret instanceof  NamedStruct)
+            ((NamedStruct) ret).hidden = true;
+        if(ret instanceof NamedNodeType)
+            ((NamedNodeType) ret).hidden = true;
+    }
+
+    @Override
+    public void unhideEntity(String entityName) {
+        INamedEntity ret = getNamedEntity(entityName);
+        if(ret instanceof  NamedStruct)
+            ((NamedStruct) ret).hidden = false;
+        if(ret instanceof NamedNodeType)
+            ((NamedNodeType) ret).hidden = false;
     }
 
     @Override

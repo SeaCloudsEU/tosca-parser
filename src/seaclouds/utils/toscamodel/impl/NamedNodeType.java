@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by pq on 20/04/2015.
  */
 public class NamedNodeType extends  NodeType implements INamedEntity {
-    final String name;
+    private String name;
     public boolean hidden = false;
 
     @Override
@@ -38,5 +38,9 @@ public class NamedNodeType extends  NodeType implements INamedEntity {
     @Override
     public INodeType changeDescription(String newDescription) {
         return new NodeType((NodeType)baseType,newDescription,declaredProperties,attributes);
+    }
+
+    public void rename(String newEntityName) {
+        name = newEntityName;
     }
 }
