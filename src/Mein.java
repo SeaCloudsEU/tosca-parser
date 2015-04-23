@@ -1,8 +1,11 @@
+import org.yaml.snakeyaml.DumperOptions;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.emitter.Emitter;
+import org.yaml.snakeyaml.events.Event;
 import seaclouds.utils.toscamodel.*;
+import seaclouds.utils.toscamodel.impl.ToscaEmitter;
 
-import java.io.Console;
-import java.io.FileReader;
-import java.io.Reader;
+import java.io.*;
 import java.lang.reflect.MalformedParametersException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,8 +19,27 @@ public class Mein {
     public static void main(String[] parameters) throws  Exception {
         IToscaEnvironment env = Tosca.newEnvironment();
         Reader toscaFile = new FileReader("C:\\Users\\pq\\Downloads\\cloud_offerings_iaas.yaml.txt.yaml");
+        env.readFile(toscaFile,true);
+        toscaFile = new FileReader("C:\\Users\\pq\\Downloads\\test2-aam.yaml");
+        env.readFile(toscaFile,false);
+        Yaml yaml = new Yaml();
+        StringWriter target = new StringWriter();
+        DumperOptions options = new DumperOptions();
+        //options.setDefaultScalarStyle(DumperOptions.ScalarStyle.SINGLE_QUOTED);
+
+        //Emitter emitter = new Emitter(target,options);
+        //for (Event e : yaml.parse(toscaFile))
+        //{
+        //    emitter.emit(e);
+        //}
+        ToscaEmitter e = new ToscaEmitter();
+        e.WriteDocument(target, env);
+        String out = target.toString();
+        String replaced = out.replaceAll("! ","").replaceAll("\"","");
+        System.out.println(replaced);
+        if(true)
+            return;
         env.readFile(toscaFile, false);
-        Console c = System.console();
         for (ITypeStruct nodeType : env.getTypesDerivingFrom((ITypeStruct) env.getNamedEntity("emptyStruct"))) {
             logger.info(((INamedEntity)nodeType).name());
             logger.info(((INamedEntity)nodeType.baseType()).name());
@@ -48,6 +70,7 @@ public class Mein {
             logger.info(nodeType.allProperties().toString());
             logger.info(nodeType.allAttributes().toString());
         }
+
         return;
 
     }

@@ -2,6 +2,7 @@ package seaclouds.utils.toscamodel.basictypes.impl;
 
 import seaclouds.utils.toscamodel.IConstraint;
 import seaclouds.utils.toscamodel.IType;
+import seaclouds.utils.toscamodel.IValue;
 import seaclouds.utils.toscamodel.basictypes.ITypeBoolean;
 import seaclouds.utils.toscamodel.basictypes.IValueBoolean;
 import seaclouds.utils.toscamodel.impl.CoercedType;
@@ -35,8 +36,12 @@ public class TypeBoolean implements ITypeBoolean {
 
     @Override
     public IValueBoolean instantiate(Object value) {
-        if (value instanceof Boolean)
+        if (value instanceof IValueBoolean)
+            return (IValueBoolean)value;
+        else if (value instanceof Boolean)
             return instantiate((Boolean) value);
+        else if (value instanceof String)
+            return instantiate(Boolean.valueOf((String)value));
         else throw new IllegalArgumentException();
     }
 

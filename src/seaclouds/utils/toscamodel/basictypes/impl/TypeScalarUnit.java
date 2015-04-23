@@ -38,8 +38,13 @@ public class TypeScalarUnit implements ITypeScalarUnit {
 
     @Override
     public IValue instantiate(Object value) {
-        if(value instanceof Double) return instantiate((Double) value);
-        if(value instanceof Float) return instantiate((Float) value);
+        //if(value instanceof Double) return instantiate((Double) value);
+        //if(value instanceof Float) return instantiate((Float) value);
+        if(value instanceof IValueScalarUnit) return (IValueScalarUnit) value;
+        if(value instanceof String) {
+            String[] res = ((String) value).split(" ", 2);
+            return instantiate(Integer.valueOf(res[0]),res[1]);
+        }
         throw new IllegalArgumentException();
     }
 

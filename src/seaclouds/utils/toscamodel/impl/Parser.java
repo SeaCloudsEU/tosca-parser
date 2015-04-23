@@ -158,6 +158,10 @@ public final class Parser {
                             case "node_templates":
                                 ParseMapping(v2, it, (k3, v3) -> ParseNodeTemplate(v3, it, k3));
                                 break;
+                            case "relationship_templates":
+                                // TODO: relationships
+                                Skip(v2,it);
+                                break;
                             default:
                                 throw new ParseError();
                         }
@@ -255,7 +259,7 @@ public final class Parser {
                     break;
                 case "capabilities":
                     // TODO
-                    Skip(e, it);
+                    Skip(value, it);
                     break;
                 case "requirements":
                     //Expect(value.is(Event.ID.SequenceStart));
@@ -267,6 +271,10 @@ public final class Parser {
                     //Expect(value.is(Event.ID.MappingStart));
                     ParseAttributes(value, it, attributes);
                     break;
+                case "artifacts":
+                    // TODO
+                    Skip(value,it);
+                    break;
                 default:
                     throw new ParseError();
             }
@@ -277,7 +285,7 @@ public final class Parser {
         else {
             INamedEntity pt = env.getNamedEntity(parentTypeName[0]);
             if(pt == null || !(pt instanceof INodeType))
-                throw new ParseError();
+                throw new TypeError();
             parentType = (INodeType)pt;
         }
         INodeTemplate newTemplate = env.newTemplate(parentType);
