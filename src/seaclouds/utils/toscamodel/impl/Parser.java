@@ -159,13 +159,12 @@ public final class Parser {
                                 break;
                             case "relationship_templates":
                                 // TODO: relationships
-                                Skip(v2,it);
+                                ((ToscaEnvironment)env).relationshipTemplate = ParseAny(v2, it);
                                 break;
                             default:
                                 throw new ParseError();
                         }
                     });
-                    // TODO: topology
                     break;
                 default:
                     throw new ParseError();

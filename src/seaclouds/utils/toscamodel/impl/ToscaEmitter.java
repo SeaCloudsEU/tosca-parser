@@ -28,7 +28,7 @@ public class ToscaEmitter {
         e.emit(new StreamStartEvent(null,null));
         EmitDocument(e, environment);
         e.emit(new StreamEndEvent(null,null));
-        target.write(sw.toString().replaceAll("! ","").replaceAll("\"",""));
+        target.write(sw.toString().replaceAll("! ", "").replaceAll("\"",""));
     }
 
     private void WriteScalarValue(Emitter e, Object scalar) throws  IOException {
@@ -83,14 +83,14 @@ public class ToscaEmitter {
     private void WriteListValue(Emitter e, List<IValue> list) throws  IOException {
         StartSequence(e);
         for (IValue iValue : list) {
-            WriteValue(e,iValue);
+            WriteValue(e, iValue);
         }
         EndSequence(e);
 
     }
 
     private void EndSequence(Emitter e) throws IOException {
-        e.emit(new SequenceEndEvent(null,null));
+        e.emit(new SequenceEndEvent(null, null));
     }
 
     private void StartSequence(Emitter e) throws IOException {
@@ -113,7 +113,7 @@ public class ToscaEmitter {
         } else if (value instanceof IValueMap) {
             WriteStructValue(e,((IValueMap) value).get());
         } else if (value instanceof  IValueScalarUnit) {
-            WriteScalarValue(e,Double.toString(((IValueScalarUnit) value).get()) + ((IValueScalarUnit) value).unit());
+            WriteScalarValue(e,Double.toString(((IValueScalarUnit) value).get()) + " " + ((IValueScalarUnit) value).unit());
         } else {
             throw new NotImplementedException();
         }
@@ -178,16 +178,45 @@ public class ToscaEmitter {
                     WriteNodeType(e,nodeType);
                 }
             EndMap(e);
-            WriteScalarValue(e,"topology_template"); StartMap(e);
+            WriteScalarValue(e, "topology_template"); StartMap(e);
                 WriteScalarValue(e, "node_templates"); StartMap(e);
                     for (INodeTemplate template : environment.getNodeTemplatesOfType((INodeType) environment.getNamedEntity("tosca.nodes.Root"))) {
                         WriteScalarValue(e,((INamedEntity)template).name());
                         WriteNodeTemplate(e,template);
                     }
                 EndMap(e);
+                if(environment instanceof ToscaEnvironment && ((ToscaEnvironment) environment).relationshipTemplate != null)
+                {
+                    WriteScalarValue(e, "relationship_templates");
+                    WriteDummyRelationshipTemplate(e,((ToscaEnvironment) environment).relationshipTemplate);
+                }
             EndMap(e);
         EndMap(e);
         e.emit(new DocumentEndEvent(null, null, options.isExplicitEnd()));
+    }
+
+    private void DumpAny(Emitter e, Object o) throws IOException {
+        if(o instanceof Map)
+        {
+            StartMap(e);
+            for(Map.Entry<String,Object> entry: ((Map<String,Object>) o).entrySet()) {
+                WriteScalarValue(e,entry.getKey());
+                DumpAny(e,entry.getValue());
+            }
+            EndMap(e);
+
+        } else if (o instanceof List) {
+            StartSequence(e);
+            for(Object object : (List)o ) {
+                DumpAny(e,object);
+            }
+            EndSequence(e);
+        } else  {
+            WriteScalarValue(e,o);
+        }
+    }
+    private void WriteDummyRelationshipTemplate(Emitter e, Object relationshipTemplate) throws IOException {
+        DumpAny(e,relationshipTemplate);
     }
 
 

@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 
 public class ToscaEnvironment implements  IToscaEnvironment {
 
+    public Object relationshipTemplate = null;
     private final TypeManager typeManager = new TypeManager(this);
     //private final ToscaTopology topology = new ToscaTopology(this);
     private static final String relName = "normative_types.yaml";

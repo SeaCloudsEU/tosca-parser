@@ -4,7 +4,7 @@
     <root id="archive" name="seaclouds.utils.toscamodel.jar">
       <element id="library" level="project" name="com.google.guava:guava:18.0" />
       <element id="library" level="project" name="org.yaml:snakeyaml:1.15" />
-      <element id="artifact" artifact-name="ToscaModel" />
+      <element id="module-output" name="ToscaModel" />
     </root>
   </artifact>
 </component>
