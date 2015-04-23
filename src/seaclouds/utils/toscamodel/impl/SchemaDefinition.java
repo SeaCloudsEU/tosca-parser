@@ -32,14 +32,35 @@ abstract public class SchemaDefinition implements ISchemaDefinition {
 
     @Override
     public boolean isCompatible(ISchemaDefinition otherType) {
+        if(!(otherType instanceof  ISchemaDefinition))
+            return false;
+        ISchemaDefinition o = (ISchemaDefinition) otherType;
+        if(!this.allProperties.equals(o.allProperties()))
+            return false;
+        return true;
         // TODO
-        return equals(otherType);
     }
 
     @Override
     public boolean equals(Object obj) {
+        if(!(obj instanceof  ISchemaDefinition))
+            return false;
+        ISchemaDefinition o = (ISchemaDefinition) obj;
+        if(this.baseType == null && o.baseType() != null)
+            return false;
+        if(!this.baseType.equals(o.baseType()))
+            return false;
+        if(!this.declaredProperties().equals(o.declaredProperties()))
+            return false;
+        if(!this.description().equals(o.description()))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
         // TODO
-        return super.equals(obj);
+        return super.hashCode();
     }
 
     @Override

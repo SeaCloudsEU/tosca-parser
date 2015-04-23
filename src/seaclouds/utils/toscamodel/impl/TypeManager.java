@@ -20,6 +20,7 @@ class TypeManager {
     final Map<String, NamedStruct> structTypes = new HashMap<String, NamedStruct>();
     final Map<String, NamedNodeType> nodeTypes = new HashMap<String, NamedNodeType>();
     final Map<String, NamedNodeTemplate> nodeTemplates = new HashMap<String, NamedNodeTemplate>();
+    final Map<String, CoercedType> coercedTypes = new HashMap<>();
 
     public TypeManager(ToscaEnvironment toscaEnvironment) {
         this.toscaEnvironment = toscaEnvironment;
@@ -87,7 +88,7 @@ class TypeManager {
             structTypes.put(name, t);
             return t;
         } else if (type instanceof  ICoercedType) {
-            //todo
+            coercedTypes.put(name,new NamedCoercedType(name,(ICoercedType)type));
         }
         return null;
     }

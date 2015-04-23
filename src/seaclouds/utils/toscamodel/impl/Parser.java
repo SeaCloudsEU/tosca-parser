@@ -127,7 +127,6 @@ public final class Parser {
     }
 
     private String ScalarParse(Event e) {
-        // TODO not implemented
         return ((ScalarEvent)e).getValue();
     }
 
@@ -222,9 +221,9 @@ public final class Parser {
         for(Map.Entry<String,? extends  IProperty> entry : properties.entrySet()) {
             newType = newType.addProperty(entry.getKey(), entry.getValue().type(), entry.getValue().defaultValue());
         }
-        //todo: make portable hiding properties
         NamedStruct s = (NamedStruct)env.registerType(typeName, newType);
-        s.hidden = this.loadAsShared;
+        if(this.loadAsShared)
+            env.hideEntity(typeName);
 
     }
 
@@ -359,7 +358,8 @@ public final class Parser {
         NamedNodeType s = (NamedNodeType) env.registerNodeType(typeName, newType);
         if(s == null)
             throw new TypeError();
-        env.hideEntity(typeName);
+        if(this.loadAsShared)
+            env.hideEntity(typeName);
     }
 
     private void ParseAttributes(Event e, Iterator<Event> it, Map<String, Object> attributes) {

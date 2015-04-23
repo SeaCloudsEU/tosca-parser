@@ -1,5 +1,6 @@
 package seaclouds.utils.toscamodel.impl;
 
+import com.google.common.collect.Maps;
 import seaclouds.utils.toscamodel.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -119,8 +120,8 @@ class StructValue implements  IValueStruct {
 
         @Override
         public Set<Entry<String, IValue>> entrySet() {
-            // TODO
-            throw new NotImplementedException();
+            Map<String,IValue> m = Maps.transformEntries(type.allProperties(),(p,t)->get(p));
+            return m.entrySet();
         }
 
         @Override

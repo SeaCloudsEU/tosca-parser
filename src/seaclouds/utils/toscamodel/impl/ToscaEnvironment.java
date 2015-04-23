@@ -66,9 +66,6 @@ public class ToscaEnvironment implements  IToscaEnvironment {
     @Override
     public INamedEntity getNamedEntity(String entityName) {
         INamedEntity ret = null;
-        // todo
-//        if (ret == null)
-//            ret = topology.getNodeTemplate(entityName);
         if (ret == null)
             ret = (INamedEntity)typeManager.getNodeTemplate(entityName);
         if (ret == null)
