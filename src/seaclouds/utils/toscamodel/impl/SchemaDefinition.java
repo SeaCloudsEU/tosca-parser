@@ -48,7 +48,7 @@ abstract public class SchemaDefinition implements ISchemaDefinition {
         ISchemaDefinition o = (ISchemaDefinition) obj;
         if(this.baseType == null && o.baseType() != null)
             return false;
-        if(!this.baseType.equals(o.baseType()))
+        if(this.baseType!= null && !this.baseType.equals(o.baseType()))
             return false;
         if(!this.declaredProperties().equals(o.declaredProperties()))
             return false;

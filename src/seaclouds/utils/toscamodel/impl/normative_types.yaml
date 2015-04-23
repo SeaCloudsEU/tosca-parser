@@ -1,21 +1,5 @@
 tosca_definitions_version: tosca_simple_yaml_1_0_0
 
-# node_types:
-#     seaclouds.nodes.Compute:
-#         derived_from: tosca.nodes.Compute
-#         properties:
-#             scaling_horizontal: [no,manual,auto ]
-#             scaling_vertical: [no,manual,auto ]
-#             storage_type: (tbd)
-#             storage_file_system: (maybe not needed)
-#             region: (hiearchical using types?) seaclouds.locations
-#             networking:
-#                 outbound_bandwidth:
-#                 inbound_bandwidth:
-#                 load_balancing:
-#                 number_of_ipv4:
-# 
-
 
 datatype_definitions:
     seaclouds.types.NodeNetworkInfo:
@@ -110,30 +94,4 @@ node_types:
                 type: string
             version:
                 type: string
-            
-
-
-topology_template:
-    node_templates:
-        test:
-            type: tosca.nodes.Compute
-            attributes:
-                num_cpus: 4
-        test_due:
-            type: seaclouds.nodes.Compute
-            attributes:
-                num_cpus: 4
-                scaling_horizontal: manual
-                scaling_vertical: auto
-                storage_type: raid
-                storage_file_system: reiser5
-        test_tre:
-            type: seaclouds.nodes.Compute
-            attributes:
-               num_cpus: 3
-            properties:
-                my_phava:
-                    type: float
-                    default: 8.3
-
 
