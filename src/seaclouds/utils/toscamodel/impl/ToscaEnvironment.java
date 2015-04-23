@@ -5,16 +5,23 @@ import seaclouds.utils.toscamodel.*;
  * Created by pq on 05/04/15.
  */
 
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
+import java.io.*;
 import java.util.Collections;
+import java.util.ResourceBundle;
 
 public class ToscaEnvironment implements  IToscaEnvironment {
 
     private final TypeManager typeManager = new TypeManager(this);
     //private final ToscaTopology topology = new ToscaTopology(this);
+    private static final String relName = "normative_types.yaml";
+    private static final String absName = "/seaclouds/utils/toscamodel/impl/normative_types.yaml";
 
+    public ToscaEnvironment() {
+        //ResourceBundle bundle = ResourceBundle.getBundle("seaclouds.utils.toscamodel.impl");
+        //this.getClass().getResourceAsStream(absName);
+        InputStream stream = this.getClass().getResourceAsStream(relName);
+        readFile(new InputStreamReader(stream),true);
+    }
 
     @Override
     public void readFile(Reader input, boolean hideTypes) {
@@ -24,7 +31,7 @@ public class ToscaEnvironment implements  IToscaEnvironment {
 
     @Override
     public void renameEntity(String entityName, String newEntityName) {
-        typeManager.renameEntity(entityName,newEntityName);
+        typeManager.renameEntity(entityName, newEntityName);
     }
 
     @Override

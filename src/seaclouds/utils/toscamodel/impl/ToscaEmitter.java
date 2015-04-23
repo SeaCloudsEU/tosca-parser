@@ -28,7 +28,7 @@ public class ToscaEmitter {
         e.emit(new StreamStartEvent(null,null));
         EmitDocument(e, environment);
         e.emit(new StreamEndEvent(null,null));
-        target.write(sw.toString());
+        target.write(sw.toString().replaceAll("! ","").replaceAll("\"",""));
     }
 
     private void WriteScalarValue(Emitter e, Object scalar) throws  IOException {

@@ -18,13 +18,11 @@ public class Mein {
 
     public static void main(String[] parameters) throws  Exception {
         IToscaEnvironment env = Tosca.newEnvironment();
-        Reader toscaFile = new FileReader("C:\\Users\\pq\\Downloads\\cloud_offerings_iaas.yaml.txt.yaml");
-        env.readFile(toscaFile,true);
-        toscaFile = new FileReader("C:\\Users\\pq\\Downloads\\test2-aam.yaml");
+        Reader toscaFile = new FileReader("C:\\Users\\pq\\Downloads\\test2-aam.yaml");
         env.readFile(toscaFile,false);
-        Yaml yaml = new Yaml();
         StringWriter target = new StringWriter();
-        DumperOptions options = new DumperOptions();
+        //Yaml yaml = new Yaml();
+        //DumperOptions options = new DumperOptions();
         //options.setDefaultScalarStyle(DumperOptions.ScalarStyle.SINGLE_QUOTED);
 
         //Emitter emitter = new Emitter(target,options);
@@ -35,8 +33,7 @@ public class Mein {
         ToscaEmitter e = new ToscaEmitter();
         e.WriteDocument(target, env);
         String out = target.toString();
-        String replaced = out.replaceAll("! ","").replaceAll("\"","");
-        System.out.println(replaced);
+        System.out.println(out);
         if(true)
             return;
         env.readFile(toscaFile, false);

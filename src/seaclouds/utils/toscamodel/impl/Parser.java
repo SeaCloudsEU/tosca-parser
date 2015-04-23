@@ -356,9 +356,10 @@ public final class Parser {
             IValue v = newType.allProperties().get(entry.getKey()).type().instantiate(entry.getValue());
             newType.declaredAttributes().put(entry.getKey(),v);
         }
-        //TODO: make 'hidden' portable
         NamedNodeType s = (NamedNodeType) env.registerNodeType(typeName, newType);
-        s.hidden=true;
+        if(s == null)
+            throw new TypeError();
+        env.hideEntity(typeName);
     }
 
     private void ParseAttributes(Event e, Iterator<Event> it, Map<String, Object> attributes) {

@@ -1,0 +1,139 @@
+tosca_definitions_version: tosca_simple_yaml_1_0_0
+
+# node_types:
+#     seaclouds.nodes.Compute:
+#         derived_from: tosca.nodes.Compute
+#         properties:
+#             scaling_horizontal: [no,manual,auto ]
+#             scaling_vertical: [no,manual,auto ]
+#             storage_type: (tbd)
+#             storage_file_system: (maybe not needed)
+#             region: (hiearchical using types?) seaclouds.locations
+#             networking:
+#                 outbound_bandwidth:
+#                 inbound_bandwidth:
+#                 load_balancing:
+#                 number_of_ipv4:
+# 
+
+
+datatype_definitions:
+    seaclouds.types.NodeNetworkInfo:
+        properties:
+            outbound_bandwidth:
+                type: scalar-unit
+            inbound_bandwidth:
+                type: scalar-unit
+            load_balancing:
+                type: boolean
+            number_of_ipv4:
+                type: integer
+    seaclouds.types.Location:
+        properties: {}
+    seaclouds.types.Location.Europe:
+        derived_from: seaclouds.types.Location
+
+    seaclouds.types.QosRequirements:
+        properties:
+            response_time:
+                type: float
+
+node_types:
+        
+    tosca.nodes.Compute:
+        derived_from: tosca.nodes.Root
+        properties:
+            num_cpus:
+                type: integer
+            disk_size:
+                type: scalar-unit
+            availability:
+                type: float
+    seaclouds.nodes.Platform:
+        derived_from: tosca.nodes.Root
+        properties:
+            java_support:
+                type: boolean
+                default: false
+            java_version:
+                type: string
+                default: ''
+
+    seaclouds.nodes.Logic:
+        derived_from: tosca.nodes.Root
+        properties:
+            qos_requirements:
+                type: seaclouds.types.QosRequirements
+
+    seaclouds.nodes.Compute:
+        derived_from: tosca.nodes.Compute
+        properties:
+            scaling_horizontal:
+                type: string
+                constraints:
+                    - valid_values: [ no, manual,auto]
+                default: no
+            scaling_vertical:
+                type: string
+                constraints:
+                    - valid_values: [no,manual,auto]
+                default: no
+            storage_type:
+                type: string
+                default: ''
+                # (tbd)
+            storage_file_system:
+                type: string
+                default: ''
+                # (maybe not needed)
+            region:
+                type: seaclouds.types.Location
+                default: {}
+            networking:
+                type: seaclouds.types.NodeNetworkInfo
+                default:
+                    outbound_bandwidth: 2 MB
+                    inbound_bandwidth: 1 MB
+                    load_balancing: false
+                    number_of_ipv4: 1
+
+    seaclouds.nodes.deploy.MySQL:
+        derived_from: tosca.nodes.Root
+        properties:
+            port:
+                type: string
+            db_name:
+                type: string
+            db_user:
+                type: string
+            db_password:
+                type: string
+            version:
+                type: string
+            
+
+
+topology_template:
+    node_templates:
+        test:
+            type: tosca.nodes.Compute
+            attributes:
+                num_cpus: 4
+        test_due:
+            type: seaclouds.nodes.Compute
+            attributes:
+                num_cpus: 4
+                scaling_horizontal: manual
+                scaling_vertical: auto
+                storage_type: raid
+                storage_file_system: reiser5
+        test_tre:
+            type: seaclouds.nodes.Compute
+            attributes:
+               num_cpus: 3
+            properties:
+                my_phava:
+                    type: float
+                    default: 8.3
+
+
