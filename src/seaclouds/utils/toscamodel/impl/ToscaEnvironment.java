@@ -5,6 +5,7 @@ import seaclouds.utils.toscamodel.*;
  * Created by pq on 05/04/15.
  */
 
+import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.Collections;
@@ -23,7 +24,13 @@ public class ToscaEnvironment implements  IToscaEnvironment {
 
     @Override
     public void writeFile(Writer output) {
-        // todo
+        ToscaEmitter emitter = new ToscaEmitter();
+        try {
+            emitter.WriteDocument(output, this);
+        } catch (IOException e) {
+            throw new RuntimeException("zomg!");
+        }
+
     }
 
     @Override
