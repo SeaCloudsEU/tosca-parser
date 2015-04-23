@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 /**
  * Created by pq on 21/04/2015.
  */
-public class Mein {
+public class Main {
     static Logger logger = Logger.getLogger("logger");
 
     public static void main(String[] parameters) throws  Exception {
