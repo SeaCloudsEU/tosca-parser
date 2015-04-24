@@ -1,3 +1,5 @@
+package seaclouds.utils.toscamodel;
+
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.emitter.Emitter;
