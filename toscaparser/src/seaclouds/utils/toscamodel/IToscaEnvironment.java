@@ -14,6 +14,13 @@ public interface IToscaEnvironment {
     public INamedEntity registerNodeType(String entityName, INodeType t);
     public INamedEntity registerNodeTemplate(String entityName, INodeTemplate t);
 
+    /***
+     *  Imports a named entity from another environment, with all its supertypes and used data types.
+     *  When an entity with the same name is present it is assumed to be consistent and used without importing a new one
+     * @param entity the named entity to be imported
+     */
+    public INamedEntity importWithSupertypes(INamedEntity entity);
+
     INodeTemplate newTemplate(INodeType type);
 
     public Iterable<INodeTemplate> getNodeTemplatesOfType(INodeType rootType);

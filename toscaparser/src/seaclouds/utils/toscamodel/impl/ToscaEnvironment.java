@@ -1,5 +1,6 @@
 package seaclouds.utils.toscamodel.impl;
 import seaclouds.utils.toscamodel.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by pq on 05/04/15.
@@ -7,7 +8,6 @@ import seaclouds.utils.toscamodel.*;
 
 import java.io.*;
 import java.util.Collections;
-import java.util.ResourceBundle;
 
 public class ToscaEnvironment implements  IToscaEnvironment {
 
@@ -108,6 +108,24 @@ public class ToscaEnvironment implements  IToscaEnvironment {
     @Override
     public INamedEntity registerNodeTemplate(String entityName, INodeTemplate t) {
         return typeManager.registerNodeTemplate(entityName, t);
+    }
+
+    @Override
+    public INamedEntity importWithSupertypes(INamedEntity entity) {
+        return importToMove(entity);
+    }
+
+    private INamedEntity importToMove(INamedEntity entity) {
+        INamedEntity res = getNamedEntity(entity.name());
+        if (res != null)
+            return res;
+        if(entity instanceof INodeType) res = typeManager.importNodeType(entity, this);
+        else if (entity instanceof  INodeTemplate) res = typeManager.importNodeTemplate(entity, this);
+        else if (entity instanceof  ITypeStruct) res = typeManager.importStructType(entity, this);
+        else {
+            throw new NotImplementedException();
+        }
+        return res;
     }
 
     @Override

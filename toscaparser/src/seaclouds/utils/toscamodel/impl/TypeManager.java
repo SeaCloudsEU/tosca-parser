@@ -157,4 +157,49 @@ class TypeManager {
             structTypes.put(newEntityName,struct);
         }
     }
+
+    INamedEntity importStructType(INamedEntity entity) {
+        INamedEntity res;
+        importNodeType((INamedEntity) ((ITypeStruct) entity).baseType());
+        for (Map.Entry<String, IProperty> property : ((ITypeStruct) entity).declaredProperties().entrySet()) {
+            if(property.getValue().type() instanceof  INamedEntity)
+                toscaEnvironment.importWithSupertypes((INamedEntity) property.getValue().type());
+            else if (property.getValue().type() instanceof ICoercedType)
+                toscaEnvironment.importWithSupertypes((INamedEntity) ((ICoercedType) property.getValue().type()).baseType());
+            else if (property.getValue().type() instanceof ITypeStruct)
+                importStructType((INamedEntity) ((ITypeStruct) property.getValue().type()).baseType());
+        }
+        res = toscaEnvironment.registerType(entity.name(), (ITypeStruct) entity);
+        return res;
+    }
+
+    INamedEntity importNodeTemplate(INamedEntity entity) {
+        INamedEntity res;
+        importNodeType((INamedEntity) ((INodeTemplate) entity).baseType());
+        for (Map.Entry<String, IProperty> property : ((INodeTemplate) entity).declaredProperties().entrySet()) {
+            if(property.getValue().type() instanceof  INamedEntity)
+                toscaEnvironment.importWithSupertypes((INamedEntity) property.getValue().type());
+            else if (property.getValue().type() instanceof ICoercedType)
+                toscaEnvironment.importWithSupertypes((INamedEntity) ((ICoercedType) property.getValue().type()).baseType());
+            else if (property.getValue().type() instanceof ITypeStruct)
+                importStructType((INamedEntity) ((ITypeStruct) property.getValue().type()).baseType());
+        }
+        res = toscaEnvironment.registerNodeTemplate(entity.name(), (INodeTemplate) entity);
+        return res;
+    }
+
+    INamedEntity importNodeType(INamedEntity entity) {
+        INamedEntity res;
+        importNodeType((INamedEntity) ((INodeType) entity).baseType());
+        for (Map.Entry<String, IProperty> property : ((INodeType) entity).declaredProperties().entrySet()) {
+            if(property.getValue().type() instanceof  INamedEntity)
+                toscaEnvironment.importWithSupertypes((INamedEntity) property.getValue().type());
+            else if (property.getValue().type() instanceof ICoercedType)
+                toscaEnvironment.importWithSupertypes((INamedEntity) ((ICoercedType) property.getValue().type()).baseType());
+            else if (property.getValue().type() instanceof ITypeStruct)
+                importStructType((INamedEntity) ((ITypeStruct) property.getValue().type()).baseType());
+        }
+        res = toscaEnvironment.registerNodeType(entity.name(), (INodeType) entity);
+        return res;
+    }
 }
