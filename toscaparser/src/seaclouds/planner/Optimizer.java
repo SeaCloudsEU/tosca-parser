@@ -3,6 +3,7 @@ package seaclouds.planner;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 import seaclouds.utils.toscamodel.*;
+import seaclouds.utils.toscamodel.basictypes.IValueInteger;
 
 import java.util.*;
 
@@ -12,7 +13,15 @@ import java.util.*;
 public class Optimizer {
     public final int wantedSolutions = 2;
     private double computeScore(IToscaEnvironment aam, Map<String, INodeType> solution){
-        return 0.0;
+        //here the score function for given solution shall be implemented.
+        //As an example, we return as score the sum of all cpu cores in the solution
+        int coreCount = 0;
+        for (INodeType nodeType : solution.values()) {
+            IValue v = nodeType.allAttributes().get("cpu_count");
+            if(v instanceof IValueInteger)
+                coreCount += ((IValueInteger) v).get();
+        }
+        return coreCount;
     }
 
     class Solution implements Comparable<Solution> {
@@ -119,7 +128,7 @@ public class Optimizer {
         return ret;
     }
 
-    public List<IToscaEnvironment> optimizeFullSearchB(IToscaEnvironment aam, Map<String,List<INodeType>> matches) {
+    public List<IToscaEnvironment> optimizeFullSearchCartesian(IToscaEnvironment aam, Map<String,List<INodeType>> matches) {
         List<String> labels = new ArrayList<>();
         List<Set<INodeType>> values = new ArrayList<>();
         for (Map.Entry<String, List<INodeType>> matchable : matches.entrySet()) {
@@ -135,7 +144,7 @@ public class Optimizer {
             HashMap<String,INodeType> s = new HashMap<>();
             while(it1.hasNext()&& it2.hasNext())
                 s.put(it2.next(), it1.next());
-            solutions.offer(new Solution(aam,s));
+            solutions.offer(new Solution(aam, s));
             while(solutions.size() > wantedSolutions)
                 solutions.poll();
         }

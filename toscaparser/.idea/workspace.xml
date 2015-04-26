@@ -7,12 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c6f60f2-5f26-4b80-8456-1fcdf83625f6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/seaclouds/planner/Optimizer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/IToscaEnvironment.java" afterPath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/IToscaEnvironment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ToscaEnvironment.java" afterPath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/ToscaEnvironment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/TypeManager.java" afterPath="$PROJECT_DIR$/src/seaclouds/utils/toscamodel/impl/TypeManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/seaclouds/planner/Optimizer.java" afterPath="$PROJECT_DIR$/src/seaclouds/planner/Optimizer.java" />
     </list>
     <ignored path="ToscaModel.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,12 +64,10 @@
       <file leaf-file-name="Optimizer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/seaclouds/planner/Optimizer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.77257526">
-              <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.07580825">
+              <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#368#369#0" expanded="true" />
-                <element signature="e#394#395#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1219,12 +1212,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/seaclouds/planner/Optimizer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.77257526">
-          <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.07580825">
+          <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#368#369#0" expanded="true" />
-            <element signature="e#394#395#0" expanded="true" />
           </folding>
         </state>
       </provider>
