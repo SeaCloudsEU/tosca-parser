@@ -119,9 +119,9 @@ public class ToscaEnvironment implements  IToscaEnvironment {
         INamedEntity res = getNamedEntity(entity.name());
         if (res != null)
             return res;
-        if(entity instanceof INodeType) res = typeManager.importNodeType(entity, this);
-        else if (entity instanceof  INodeTemplate) res = typeManager.importNodeTemplate(entity, this);
-        else if (entity instanceof  ITypeStruct) res = typeManager.importStructType(entity, this);
+        if(entity instanceof INodeType) res = typeManager.importNodeType(entity);
+        else if (entity instanceof  INodeTemplate) res = typeManager.importNodeTemplate(entity);
+        else if (entity instanceof  ITypeStruct) res = typeManager.importStructType(entity);
         else {
             throw new NotImplementedException();
         }
