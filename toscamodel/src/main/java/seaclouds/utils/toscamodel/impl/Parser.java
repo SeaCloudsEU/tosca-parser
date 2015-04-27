@@ -347,6 +347,7 @@ public final class Parser {
         if(pt == null || !(pt instanceof INodeType))
             throw new TypeError();
         INodeType newType = (INodeType)pt;
+        newType = newType.addProperty(null,null,null);
         for(Map.Entry<String,? extends  IProperty> entry : properties.entrySet()) {
             newType = newType.addProperty(entry.getKey(), entry.getValue().type(), entry.getValue().defaultValue());
         }

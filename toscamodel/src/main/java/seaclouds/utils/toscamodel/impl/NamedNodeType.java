@@ -32,6 +32,8 @@ public class NamedNodeType extends  NodeType implements INamedEntity {
 
     @Override
     public INodeType addProperty(String propName, IType propType, Object defaultValue) {
+        if(propName == null)
+            return new NodeType(this,description,Collections.emptyMap(),Collections.emptyMap());
         return new NodeType(this,description, Collections.singletonMap(propName,new Property(propType, defaultValue)),Collections.emptyMap());
     }
 
