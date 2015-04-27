@@ -12,27 +12,43 @@ datatype_definitions:
                 type: boolean
             number_of_ipv4:
                 type: integer
+    
     seaclouds.types.Location:
         properties: {}
+        
     seaclouds.types.Location.Europe:
         derived_from: seaclouds.types.Location
-
+    
     seaclouds.types.QosRequirements:
         properties:
             response_time:
                 type: float
+                
+    seaclouds.types.os:
+        properties:
+            load_balancing:
+                type: boolean
+    
+    seaclouds.types.os.linux:
+        derived_from: seaclouds.types.os
+    
+    seaclouds.types.os.linux.ubuntu:
+        derived_from: seaclouds.types.os.linux
+
 
 node_types:
-        
     tosca.nodes.Compute:
         derived_from: tosca.nodes.Root
         properties:
+            mem_size:
+                type: scalar-unit
             num_cpus:
                 type: integer
             disk_size:
                 type: scalar-unit
             availability:
                 type: float
+    
     seaclouds.nodes.Platform:
         derived_from: tosca.nodes.Root
         properties:
@@ -55,7 +71,7 @@ node_types:
             scaling_horizontal:
                 type: string
                 constraints:
-                    - valid_values: [ no, manual,auto]
+                    - valid_values: [ no, manual, auto]
                 default: no
             scaling_vertical:
                 type: string
@@ -71,8 +87,9 @@ node_types:
                 default: ''
                 # (maybe not needed)
             region:
-                type: seaclouds.types.Location
-                default: {}
+                type: string
+                #seaclouds.types.Location
+                default: ''
             networking:
                 type: seaclouds.types.NodeNetworkInfo
                 default:
@@ -80,6 +97,19 @@ node_types:
                     inbound_bandwidth: 1 MB
                     load_balancing: false
                     number_of_ipv4: 1
+            location:
+                type: string
+                # seaclouds.types.Location
+            disk_type:
+                type: string
+                #constraints:
+                 #   - valid values: ['sata', 'pata']
+            load_balancing:
+                type: boolean
+            local_storage:
+                type: scalar-unit
+                #constraints:
+                 #   - greater_or_equal: 0 TB
 
     seaclouds.nodes.deploy.MySQL:
         derived_from: tosca.nodes.Root
