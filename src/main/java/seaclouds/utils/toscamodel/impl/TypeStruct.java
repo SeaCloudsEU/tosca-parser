@@ -45,6 +45,20 @@ public class TypeStruct  extends  SchemaDefinition implements ITypeStruct {
         } else
             return null;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof ITypeStruct))
+            return false;
+        return declaredProperties.equals(((ITypeStruct) obj).declaredProperties())
+                && ( (((ITypeStruct) obj).baseType() == this.baseType()) || this.baseType().equals(((ITypeStruct) obj).baseType()));
+    }
+
+    @Override
+    public int hashCode() {
+        return allProperties().hashCode();
+    }
+
     @Override
     public IValueStruct instantiate(Map<String, Object> value) {
         return new StructValue(this,valueConvert(value));

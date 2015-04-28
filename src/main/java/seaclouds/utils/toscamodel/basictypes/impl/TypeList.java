@@ -32,7 +32,7 @@ import java.util.Map;
  */
 public class TypeList implements ITypeList {
     static Map<IType,ITypeList> instances = new HashMap<>();
-    static ITypeList instance(IType t) {
+    static public ITypeList instance(IType t) {
         ITypeList l = instances.get(t);
         if(l == null) {
             l = new TypeList(t);
@@ -42,6 +42,21 @@ public class TypeList implements ITypeList {
     }
     class ValueList implements  IValueList {
         final List<IValue> value;
+
+        @Override
+        public boolean equals(Object obj) {
+            if(this == obj)
+                return true;
+            if(!(obj instanceof IValueList))
+                return false;
+            return ((IValueList) obj).valueType().equals(valueType()) &&
+                    ((IValueList) obj).get().equals(this.get());
+        }
+
+        @Override
+        public int hashCode() {
+            return get().hashCode();
+        }
 
         public ValueList(List<IValue> value) {
             this.value = value;

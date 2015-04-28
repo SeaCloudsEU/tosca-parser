@@ -35,6 +35,21 @@ class StructValue implements  IValueStruct {
         this.type = type;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj)
+            return true;
+        if(!(obj instanceof IValueStruct))
+            return false;
+        return ((IValueStruct) obj).type().equals(this.type()) &&
+                ((IValueStruct) obj).get().equals(properties);
+    }
+
+    @Override
+    public int hashCode() {
+        return properties.hashCode();
+    }
+
     public ITypeStruct type() {
         return (ITypeStruct) type();
     }

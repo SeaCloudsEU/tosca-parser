@@ -31,7 +31,7 @@ import java.util.*;
  */
 public class TypeMap implements ITypeMap {
     static Map<IType,ITypeMap> instances = new HashMap<>();
-    static ITypeMap instance(IType t) {
+    static public ITypeMap instance(IType t) {
         ITypeMap m = instances.get(t);
         if(m == null) {
             m = new TypeMap(t);
@@ -41,6 +41,21 @@ public class TypeMap implements ITypeMap {
     }
     class ValueMap implements IValueMap {
         final Map<String,IValue> value;
+
+        @Override
+        public int hashCode() {
+            return value.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if(this == obj)
+                return true;
+            if(!(obj instanceof IValueMap))
+                return false;
+            return valueType().equals(((IValueMap) obj).valueType()) &&
+                    get().equals(((IValueMap) obj).get());
+        }
 
         public ValueMap(Map<String,IValue> value) {
             this.value = value;
