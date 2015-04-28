@@ -20,7 +20,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>seaclouds.utils.toscamodel</groupId>
+    <groupId>eu.seaclouds-project</groupId>
     <artifactId>toscamodel</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -47,7 +47,57 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.3</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <developers>
+        <developer>
+            <name>Leonardo Bartoloni</name>
+            <url>https://github.com/pqnet</url>
+        </developer>
+        <developer>
+            <name>Mattia Buccarella</name>
+            <url>https://github.com/buccarel</url>
+        </developer>
+        <developer>
+            <name>Simone Zenzaro</name>
+            <url>https://github.com/szenzaro</url>
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor>
+            <name>Marc Oriol Hilari</name>
+            <url>https://github.com/marcoriol</url>
+        </contributor>
+    </contributors>
+
+    <scm>
+        <url>https://github.com/pqnet/tosca-yaml-parser</url>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <name>Nexus Release Repository</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
 </project>
