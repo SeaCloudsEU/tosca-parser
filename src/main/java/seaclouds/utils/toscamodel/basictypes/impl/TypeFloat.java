@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Universit� di Pisa
+ * Copyright 2015 Universita' di Pisa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
