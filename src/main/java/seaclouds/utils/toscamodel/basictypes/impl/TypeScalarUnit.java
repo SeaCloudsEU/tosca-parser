@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Università di Pisa
+ * Copyright 2015 Universitï¿½ di Pisa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -104,6 +104,19 @@ public class TypeScalarUnit implements ITypeScalarUnit {
         @Override
         public IType type() {
             return instance;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if(this == obj) return true;
+            if(!(obj instanceof ValueScalarUnit)) return false;
+            ValueScalarUnit o = (ValueScalarUnit) obj;
+            return this.scalar == o.scalar && this.unit.equals(o.unit);
+        }
+
+        @Override
+        public int hashCode() {
+            return Double.hashCode(this.scalar) * unit.hashCode();
         }
     }
 }

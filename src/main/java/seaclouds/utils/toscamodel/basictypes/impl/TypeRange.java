@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Università di Pisa
+ * Copyright 2015 Universitï¿½ di Pisa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,7 +58,21 @@ public class TypeRange implements ITypeRange {
         public IType type() {
             return instance;
         }
+
+        @Override
+        public boolean equals(Object obj) {
+            if(this == obj) return true;
+            if(!(obj instanceof  RangeValue)) return false;
+            RangeValue o = (RangeValue) obj;
+            return this.upperBound == o.upperBound && this.lowerBound == o.lowerBound;
+        }
+
+        @Override
+        public int hashCode() {
+            return Integer.hashCode(lowerBound) * Integer.hashCode(upperBound);
+        }
     }
+
 
     @Override
     public IValueRange instantiate(Object value) {

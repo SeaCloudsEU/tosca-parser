@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Università di Pisa
+ * Copyright 2015 Universitï¿½ di Pisa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,6 +47,19 @@ public class TypeBoolean implements ITypeBoolean {
         @Override
         public IType type() {
             return instance;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (! (obj instanceof ValueBoolean)) return false;
+            ValueBoolean o = (ValueBoolean) obj;
+            return this.value == o.value;
+        }
+
+        @Override
+        public int hashCode() {
+            return Boolean.hashCode(value);
         }
     }
 

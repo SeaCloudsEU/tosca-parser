@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Università di Pisa
+ * Copyright 2015 Universitï¿½ di Pisa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,6 +45,18 @@ public class TypeString implements ITypeString {
         @Override
         public IType type() {
             return instance;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if(this == obj) return true;
+            if(!(obj instanceof ValueString)) return false;
+            return this.value.equals(((ValueString) obj).value);
+        }
+
+        @Override
+        public int hashCode() {
+            return this.value.hashCode();
         }
     }
 

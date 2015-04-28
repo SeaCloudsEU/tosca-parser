@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Università di Pisa
+ * Copyright 2015 Universitï¿½ di Pisa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,6 +47,18 @@ public class TypeFloat implements ITypeFloat{
         @Override
         public IType type() {
             return instance;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (!(obj instanceof ValueFloat)) return false;
+            return this.value == ((ValueFloat) obj).value;
+        }
+
+        @Override
+        public int hashCode() {
+            return Double.hashCode(value);
         }
     }
 
