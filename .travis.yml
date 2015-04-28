@@ -2,6 +2,20 @@ language: java
 jdk:
   - oraclejdk8
 
+before_install: "git clone -b travis `git config --get remote.origin.url` target/travis"
+after_success:
+  - .buildscript/deploy_snapshot.sh
+sudo: false
+  
+env:
+  global:
+   - secure: "Zc6+VF4JHmg1eZl0RYjPlfVL8YvarovDmw1vIx+oH1p7WbE3uhdD8gUPeJrL2MRC5IaJx5juRCXtKYvE+5g3X3A/ChdiVkuiRDfK37cIHi/6cT8zWumpNBfHJH5Bp2miLh1aT73xbrh253oiTX60abRptCzMRYFASxX5aEugWpg="
+   - secure: "dCo4KdGpvUawsKENvVpjM8T2pgYLGfVMMrPBEV9DT/p+0+mhuoyKavYjsb4o/FWH/bR6W023yOmMroOrKnQ5a70o0YLUy64xlhP4Pwkf3xYfOfPvPHmSXSNkIZm4XATFQuEt0bxHj52ffg1nTBXpHMrQKItDAtjMeFlVuZugXhk="
+
 branches:
   except:
     - travis
+
+cache:
+  directories:
+    - $HOME/.m2
